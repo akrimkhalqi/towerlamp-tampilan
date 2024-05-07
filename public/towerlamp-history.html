@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>History</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <!-- alamat icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <!-- Google font-->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet"> -->
+    <!-- themify -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+    <!-- iconfont -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+    <!-- simple line icon -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/simple-line-icons/css/simple-line-icons.css">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Chartlist chart css -->
+    <link rel="stylesheet" href="/assets/plugins/chartist/dist/chartist.css" type="text/css" media="all">
+    <!-- Weather css -->
+    <link href="/assets/css/svg-weather.css" rel="stylesheet">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+    <!-- Responsive.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css">
+    <!-- preloder -->
+    <link rel="stylesheet" href="/assets/plugins/Holdon/HoldOn.min.css">
+
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- select2 -->
+    <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" integrity="sha512-kq3FES+RuuGoBW3a9R2ELYKRywUEQv0wvPTItv3DSGqjpbNtGWVdvT8qwdKkqvPzT93jp8tSF4+oN4IeTEIlQA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" integrity="sha512-CbQfNVBSMAYmnzP3IC+mZZmYMP2HUnVkV4+PwuhpiMUmITtSpS7Prr3fNncV1RBOnWxzz4pYQ5EAGG4ck46Oig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+
+    <!-- date piker -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
+    <!-- sweetalert -->
+    <link rel="stylesheet" href="/assets/css/sweetalert2.min.css">
+
+    <style>
+        /* filter */
+        .nav-tabs {
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-tabs .nav-link {
+            border-radius: 0;
+        }
+
+        .nav-tabs>li>a {
+            margin-right: 0;
+            color: #888;
+            border-radius: 0;
+        }
+
+        .nav-tabs .nav-link:focus,
+        .nav-tabs .nav-link:hover {
+            background-color: #eee;
+            border-color: transparent;
+            color: #333;
+        }
+
+        .nav-tabs.nav-justified>li>a {
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+        .nav-tabs.nav-justified>li>a:hover,
+        .nav-tabs.nav-justified>li>a:focus {
+            border-bottom-color: #ddd;
+        }
+
+        .nav-tabs.nav-justified.nav-tabs-solid>li>a {
+            border-color: transparent;
+        }
+
+        .nav-tabs.nav-tabs-solid>li>a {
+            color: #bbc4cc;
+        }
+
+        .nav-tabs.nav-tabs-solid>li>a.active,
+        .nav-tabs.nav-tabs-solid>li>a.active:hover,
+        .nav-tabs.nav-tabs-solid>li>a.active:focus {
+            background-color: #ff9b44;
+            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4);
+            border-color: #ff9b44;
+            font-weight: bolder;
+            color: #1e2730;
+        }
+
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded {
+            border-radius: 5px;
+            background: #ebeff2;
+        }
+
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a {
+            border-radius: 5px;
+        }
+
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a.active,
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a.active:hover,
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a.active:focus {
+            border-radius: 5px;
+        }
+
+        .nav-tabs-justified>li>a {
+            border-radius: 0;
+            margin-bottom: 0;
+            border-color: #ddd;
+        }
+
+        .nav-tabs-justified>li>a:hover,
+        .nav-tabs-justified>li>a:focus {
+            border-bottom-color: #ddd;
+        }
+
+        .nav-tabs-justified.nav-tabs-solid>li>a {
+            border-color: transparent;
+        }
+
+        #selectUnit {
+            width: 150px;
+        }
+
+        #date_picker {
+            width: 350px;
+        }
+
+        .buttoncari{
+            padding: 4.2px;
+            border-radius: 0 4px 4px 0;
+            background: rgb(240,240,240);
+            border: 1px solid rgb(220,220,220);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .buttoncari:hover{
+            background: white;
+            color: white;
+        }
+        
+    </style>
+</head>
+
+<body class="sidebar-mini fixed">
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <div class="wrapper">
+        <!-- Navbar-->
+        <header class="main-header-top hidden-print" style="background-color: #fff;">
+            <a href="/" class="logo"><img class="img-fluid able-logo" src="/assets/images/logo.png"
+                alt="Theme-logo"></a>
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#!" data-toggle="offcanvas" class="sidebar-toggle"
+                style="box-shadow: 0px 0px 7px rgb(0 0 0 /5%);"></a>
+                <ul class="top-nav lft-nav">
+                <li>
+                    <!-- dapat isi disini -->
+                </li>
+                </ul>
+                <!-- Navbar Right Menu-->
+                <div class="navbar-custom-menu f-right">
+                <ul class="top-nav">
+                    <!-- window screen -->
+                    <li class="nav-item dropdown has-arrow main-drop" style="box-shadow: 0px 0px 7px rgb(0 0 0 /5%);">
+                        <a href="#!" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                            class="dropdown-toggle drop icon-circle drop-image">
+                            <span><img class="img-circle " src="/assets/images/avatar-7.png"
+                                style="width:30px; padding-right: 5px;" alt="User Image"></span>
+                            <span> Account <i class=" icofont icofont-simple-down"></i></span>
+                        </a>
+                        <ul class="dropdown-menu settings-menu">
+                            <li><a href="#"><i class="accordion.html"></i> Account</a></li>
+                            <li><a href="#"><i class="icon-lock"></i> Tags</a></li>
+                            <li onclick="logOut()"><a href="#"><i class="icon-logout"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                    <!-- User Menu-->
+                    <li class="pc-rheader-submenu">
+                        <a href="#" class="drop icon-circle" onclick="javascript:toggleFullScreen()">
+                            <i class="icon-size-fullscreen"></i>
+                        </a>
+                    </li>
+                </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Side-Nav-->
+        <aside class="main-sidebar hidden-print ">
+            <section class="sidebar" id="sidebar-scroll">
+                <!-- Sidebar Menu-->
+                <ul class="sidebar-menu">
+                    <li class="treeview">
+                        <a class="waves-effect waves-dark" href="/">
+                            <i class="icon-home"></i><span> Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="treeview"><a class="waves-effect waves-dark" href="#"><i class="icon-speedometer"></i><span>
+                                Monitoring</span><i class="icon-arrow-down"></i></a>
+                        <ul class="treeview-menu">
+                            <li class="treeview">
+                                <a class="waves-effect waves-dark" href="#">
+                                <i class="icon-arrow-right"></i>
+                                <span>Tower Lamp</span>
+                                <i class="icon-arrow-down"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li>
+                                        <a>
+                                            <div>
+                                                <select class="selectpicker" id="cnunit" class="form-control search"></select>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="active treeview">
+                        <a class="waves-effect waves-dark" href="/towerlamp/history">
+                            <i class="icon-chart"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Container-fluid starts -->
+            <!-- Main content starts -->
+            <div class="container-fluid" style="background: #f9fbfd;">
+                <div class="row dashboard-header">
+                    <div class="main-header">
+                        <h4>Tower Lamp</h4>
+                        <ol class="breadcrumb breadcrumb-title breadcrumb-arrow mt-3">
+                            <li class="breadcrumb-item">
+                                <a href="/">
+                                    <span class="icofont icofont-home"></span> Dashboard
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/towerlamp/history">Reports</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row dashboard-header">
+                    <div class="col-lg-12">
+                        <div class="card dashboard-product" style="border-bottom: 2px solid grey">
+                            <!-- <div class="form-group">
+                                <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+                            </div> -->
+                            <div class="row mb-3">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="row d-flex justify-content-start">
+                                        <input type="text" class="form-control date-range-picker ml-3 my-1" id="date_picker" style="background: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'1.25em\' height=\'1.25em\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'black\' d=\'M12 12h5v5h-5zm7-9h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 2v2H5V5zM5 19V9h14v10z\'/%3E%3C/svg%3E') 95% no-repeat white; padding-top: 10px; border-top: 0; border-bottom: -1px solid #fff; border-left: 0; border-right: 0; border-radius: 0;">
+                                        <div id="selectUnit" class="mx-3 my-1">
+                                            <select class="selectpicker" id="cnunitfilter" class="form-control search"></select>
+                                        </div>
+                                        <button id="search-filter" class="btn btn-inverse-default" style="background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221.15em%22 height=%221.15em%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22black%22 d=%22m22.77 19.32l-1.07-.82c.02-.17.04-.33.04-.5s-.01-.33-.04-.5l1.06-.82a.26.26 0 0 0 .06-.32l-1-1.73c-.06-.13-.19-.13-.32-.13l-1.23.5c-.27-.18-.54-.35-.85-.47l-.19-1.32A.236.236 0 0 0 19 13h-2a.26.26 0 0 0-.26.21l-.19 1.32c-.3.13-.59.29-.85.47l-1.24-.5c-.11 0-.24 0-.31.13l-1 1.73c-.06.11-.04.24.06.32l1.06.82a4.2 4.2 0 0 0 0 1l-1.06.82a.26.26 0 0 0-.06.32l1 1.73c.06.13.19.13.31.13l1.24-.5c.26.18.54.35.85.47l.19 1.32c.02.12.12.21.26.21h2c.11 0 .22-.09.24-.21l.19-1.32c.3-.13.57-.29.84-.47l1.23.5c.13 0 .26 0 .33-.13l1-1.73a.26.26 0 0 0-.06-.32M18 19.5c-.84 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5m-.38-16.28c-.19-.14-.4-.22-.62-.22H3c-.22 0-.43.08-.62.22a1 1 0 0 0-.17 1.4L7 10.75v5.12c-.04.29.06.6.29.83l4.01 4.01c.1.1.2.17.35.22C11.22 20 11 19 11 18c0-1.83.72-3.59 2-4.9v-2.35l4.79-6.13a1 1 0 0 0-.17-1.4M11 10.05v7.53l-2-2v-5.52L5.04 5h9.92z%22/%3E%3C/svg%3E') 95% no-repeat white; padding-right: 30px; padding-top: 10px; border-top: 0; border-bottom: -1px solid #fff; border-left: 0; border-right: 0; border-radius: 0;"
+                                        >Show Data</button>
+                                        <button id="download-excel" class="btn btn-inverse-default mx-3" style="background: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'1em\' height=\'1em\' viewBox=\'0 0 48 48\'%3E%3Cg fill=\'none\' stroke=\'black\' stroke-linecap=\'round\' stroke-width=\'4\'%3E%3Cpath stroke-linejoin=\'round\' d=\'M8 15V6a2 2 0 0 1 2-2h28a2 2 0 0 1 2 2v36a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-9\'/%3E%3Cpath d=\'M31 15h3m-6 8h6m-6 8h6\'/%3E%3Cpath stroke-linejoin=\'round\' d=\'M4 15h18v18H4zm6 6l6 6m0-6l-6 6\'/%3E%3C/g%3E%3C/svg%3E') 95% no-repeat white; padding-right: 30px; padding-top: 10px; border-top: 0; border-bottom: -1px solid #fff; border-left: 0; border-right: 0; border-radius: 0;">Download</button>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm-6 col-md-4">
+                                    <div class="row d-flex justify-content-end">
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!-- DataTable -->
+                                    <table id="data-table" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>CN</th>
+                                                <th>Brand</th>
+                                                <th>Date Time</th>
+                                                <th>Fuel Level</th>
+                                                <th>Fuel used</th>
+                                                <th>Fuel Temperature</th>
+                                                <th>Fuel Pressure</th>
+                                                <th>Fuel Rate</th>
+                                                <th>Tank Temperature</th>
+                                                <th>Engine Load</th>
+                                                <th>Engine Speed</th>
+                                                <th>Engine Cac Temperature</th>
+                                                <th>Engine Request Speed</th>
+                                                <th>Engine Hour Meter</th>
+                                                <th>Engine Coolant Temperature</th>
+                                                <th>Engine Oil Temperature</th>
+                                                <th>Engine Oil Pressure</th>
+                                                <th>Engine Boost Pressure</th>
+                                                <th>Engine Air Inlet Temperature</th>
+                                                <th>Ambient Temperature</th>
+                                                <th>AC Voltage</th>
+                                                <th>AC Current</th>
+                                                <th>AC Frequency</th>
+                                                <th>Battery</th>
+                                                <th>Charger</th>
+                                                <th>Board Temperature</th>
+                                                <th>Status Mast</th>
+                                                <th>Status Engine</th>
+                                                <th>Status Lampu 1</th>
+                                                <th>Status Lampu 2</th>
+                                                <th>Latitude</th>
+                                                <th>Longitude</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Required Jqurey -->
+<script src="/assets/plugins/Jquery/dist/jquery.min.js"></script>
+<script src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+
+<!-- Fremwork -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Scrollbar JS-->
+<script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="/assets/plugins/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+
+<!--classic JS-->
+<script src="/assets/plugins/classie/classie.js"></script>
+
+<!-- Counter js  -->
+<script src="/assets/plugins/waypoints/jquery.waypoints.min.js"></script>
+<script src="/assets/plugins/countdown/js/jquery.counterup.js"></script>
+
+<!-- preloder -->
+<script src="/assets/plugins/Holdon/HoldOn.min.js"></script>
+<!-- login -->
+<script src='/assets/js/auth_login.js'></script>
+<script src='/assets/js/init_login.js'></script>
+<!-- notification -->
+<script src="/assets/plugins/notification/js/bootstrap-growl.min.js"></script>
+
+<!-- custom js -->
+<script type="text/javascript" src="/assets/js/main.min.js"></script>
+<script type="text/javascript" src="/assets/pages/dashboard.js"></script>
+<script type="text/javascript" src="/assets/pages/elements.js"></script>
+<script src="/assets/js/menu.min.js"></script>
+
+<!-- Socket.io -->
+<script src="https://cdn.socket.io/4.1.3/socket.io.js"></script>
+<!-- Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+<!-- Include Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- select2 -->
+<script src="/assets/plugins/select2/dist/js/select2.min.js"></script>
+
+<!-- date picker -->
+<script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+
+<!-- xlsx library for Excel export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+<!-- FileSaver.js for Excel download -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+<!-- sweetalert2 -->
+<script src="/assets/js/sweetalert2.min.js"></script>
+
+<script>
+    $('#date_picker').daterangepicker({
+        "ranges": {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        "alwaysShowCalendars": true,
+        "autoApply": false,
+        "responsive": false,
+        "timePicker": true,
+        "timePicker24Hour": true, // Format 24 jam
+        "timePickerIncrement": 1,
+        "timePickerSeconds": true, // Menampilkan pemilihan detik
+        "locale": {
+            "format": 'DD-MM-YYYY HH:mm:ss' // Format tanggal dan waktu
+        }
+    });
+    
+    
+    $(document).ready(function () {
+        var dataTable = $('#data-table').DataTable({
+            responsive: true,
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 75, 100],
+            scrollX: true,
+            scrollY: '450px',
+            scrollCollapse: true,
+            columns: [
+                { data: 'serialNumber', title: 'SerialNumber' },
+                { data: 'codeName', title: 'CodeName' },
+                { data: 'brand', title: 'Brand' },
+                { data: 'dateTime', title: 'DateAndTimeRange', render: function(data) {
+                    // Gunakan moment.js untuk memformat tanggal
+                    return moment(data).format('DD-MM-YYYY HH:mm:ss');
+                }},
+                { data: 'fuelLevel', title: 'FuelLevel' },
+                { data: 'fuelUsed', title: 'FuelUsed' },
+                { data: 'fuelTemperature', title: 'FuelTemperature' },
+                { data: 'fuelPressure', title: 'FuelPressure' },
+                { data: 'fuelRate', title: 'FuelRate' },
+                { data: 'tankTemperature', title: 'TankTemperature' },
+                { data: 'engineLoad', title: 'EngineLoad' },
+                { data: 'engineSpeed', title: 'EngineSpeed' },
+                { data: 'engineCacTemperature', title: 'EngineCacTemperature' },
+                { data: 'engineRequestSpeed', title: 'EngineRequestSpeed' },
+                { data: 'engineHourMeter', title: 'EngineHourMeter' },
+                { data: 'engineCoolantTemperature', title: 'EngineCoolantTemperature' },
+                { data: 'engineOilTemperature', title: 'EngineOilTemperature' },
+                { data: 'engineOilPressure', title: 'EngineOilPressure' },
+                { data: 'engineBoostPressure', title: 'EngineBoostPressure' },
+                { data: 'engineAirInletTemperature', title: 'EngineAirInletTemperature' },
+                { data: 'ambientTemperature', title: 'AmbientTemperature' },
+                { data: 'acVoltage', title: 'ACVoltage' },
+                { data: 'acCurrent', title: 'ACCurrent' },
+                { data: 'acFreq', title: 'ACFrequency' },
+                { data: 'battery', title: 'Battery' },
+                { data: 'charger', title: 'Charger' },
+                { data: 'boardTemperature', title: 'BoardTemperature' },
+                { data: 'towerMast', title: 'StatusMast' },
+                { data: 'statusEngineParm', title: 'StatusEngine' },
+                { data: 'stateLamp1', title: 'StateLamp1' },
+                { data: 'stateLamp2', title: 'StateLamp2' },
+                { data: 'data.latitude', title: 'latitude' },
+                { data: 'data.longitude', title: 'longitude' }
+            ]
+        });
+
+        $('#search-filter').on('click', function() {
+            let selectCodeName = $('#cnunitfilter').val();
+            let selectDate = $('#date_picker').val();
+            let dateParts = selectDate.split(" - ");
+            let startDate = moment(dateParts[0], 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+            let endDate = moment(dateParts[1], 'DD-MM-YYYY HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+
+            if(selectCodeName == ''){
+                $.ajax({
+                    url: `http://localhost:3000/device/v1/towerlamp/history?startDate=${startDate}&endDate=${endDate}`,
+                    method: 'GET',
+                    success: function(response) {
+                        var table = $('#data-table').DataTable();
+                        table.clear();
+                        table.rows.add(response);
+                        table.draw();
+                        if(response.length == 0){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Data Not Found...',
+                                text: 'No record for the selected filter'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            }else{
+                $.ajax({
+                    url: `http://localhost:3000/device/v1/towerlamp/history?codeName=${selectCodeName}&startDate=${startDate}&endDate=${endDate}`,
+                    method: 'GET',
+                    success: function(response) {
+                        var table = $('#data-table').DataTable();
+                        table.clear();
+                        table.rows.add(response);
+                        table.draw();
+                        if(response.length == 0){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Data Not Found...',
+                                text: 'No record for the selected filter'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            }
+
+        });
+
+        // Download Excel button click event
+        $('#download-excel').on('click', function() {
+            // Get filtered data
+            var filteredData = dataTable.rows({ search: 'applied' }).data().toArray();
+
+            // Prepare data for Excel export
+            var excelData = filteredData.map(function(item) {
+                return [item.serialNumber, item.codeName, item.brand, item.dateTime, item.fuelLevel, item.fuelUsed, item.fuelTemperature, item.fuelPressure, item.fuelRate, item.tankTemperature, item.engineLoad, item.engineSpeed, item.engineCacTemperature, item.engineRequestSpeed, item.engineHourMeter, item.engineCoolantTemperature, item.engineOilTemperature, item.engineOilPressure, item.engineBoostPressure, item.engineAirInletTemperature, item.ambientTemperature, item.acVoltage, item.acCurrent, item.acFreq, item.battery, item.charger, item.boardTemperature, item.towerMast, item.statusEngineParm, item.stateLamp1, item.stateLamp2, item.data.latitude, item.data.longitude ];
+            });
+
+            // Create workbook and worksheet
+            var ws = XLSX.utils.aoa_to_sheet([['Serial Number','Code Name', 'Brand', 'Date Time', 'Fuel Level', 'Fuel used', 'Fuel Temperature', 'Fuel Pressure', 'Fuel rate', 'Tank Temperature', 'Engine Load', 'Engine Speed', 'Engine Cac Temperature', 'Engine Request Speed', 'Engine Hour Meter', 'Engine Coolant Temperature', 'Engine Oil Temperature', 'Engine Oil Pressure', 'Engine Boost Pressure', 'Engine Air Inlet Temperature', 'Ambient Temperature', 'AC Voltage', 'AC Current', 'AC Frequency', 'Battery', 'Charger', 'Board Temperature', 'Status Mast', 'Status Engine', 'Status Lampu 1', 'Status Lampu 2', 'Latitude', 'Longitude']].concat(excelData));
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+            // Save workbook as Excel file
+            var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+            function s2ab(s) {
+                var buf = new ArrayBuffer(s.length);
+                var view = new Uint8Array(buf);
+                for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+                return buf;
+            }
+
+            let selectCodeName = $('#cnunitfilter').val();
+            let selectDate = $('#date_picker').val();
+            saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), `${selectCodeName}-${selectDate}.xlsx`);
+        });
+
+        $('#cnunit').select2({
+            width: '100%',
+            allowClear: true,
+            multiple: false,
+            placeholder: 'Select Unit',
+            language: {
+                Results: function () {
+                return null;
+                },
+            },
+            cache: true
+        });
+
+        $('#cnunitfilter').select2({
+            width: '100%',
+            height: '100%',
+            allowClear: true,
+            multiple: false,
+            placeholder: 'Select Unit',
+            language: {
+                Results: function () {
+                return null;
+                },
+            },
+            cache: true
+        });
+
+        // request master cn
+        $.ajax({
+            url: "http://localhost:3000/device/v1/towerlamp/realtime",
+            method: "GET",
+            dataType: 'json',
+            success: function (data) {
+                let html = '';
+                let i;
+                $('#cnunit').html('')
+                html += '<option value="">Filter Unit</option>';
+                for (i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].codeName + '">' + data[i].codeName + '</option>';
+                    // console.log(data[i].codeName);
+                }
+                $('#cnunit').html(html);
+                $('#cnunitfilter').html(html);
+            } 
+        });
+
+        $('#cnunit').change(function () {
+            let codeName = $(this).val();
+            localStorage.setItem('codeName', codeName);
+            window.location.href = `/towerlamp/realtime/${codeName}`;
+            // if(codeName !== ''){
+            //     window.location.href = `/towerlamp/realtime/${codeName}`;
+            // }else{
+            //     window.location.href = '/';
+            //     localStorage.removeItem('codeName');
+            // }
+        });
+        
+        // $('.buttoncari').on('click', () => {
+        //     let codeName = localStorage.getItem('codeName');
+        //     // console.log(codeName);
+        //     if(codeName !== ''){
+        //         window.location.href = `/towerlamp/realtime/${codeName}`;
+        //     }else{
+        //         window.location.href = '/';
+        //         localStorage.removeItem('codeName');
+        //     }
+        // });
+    });
+    
+    window.addEventListener('beforeunload', function(event) {
+        // Hapus item dari local storage
+        localStorage.removeItem('codeName'); // Ganti 'key' dengan nama kunci dari data yang ingin Anda hapus
+    });
+
+</script>
+</html> 

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Lamp</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        button {
+            padding: 10px 10px;
+            font-size: 18px;
+        }
+
+        /* Gaya tambahan jika diperlukan */
+        .home-button {
+            background-color: #007bff; /* Warna latar belakang */
+            color: #fff; /* Warna teks */
+            border: none; /* Hapus garis tepi */
+            padding: 10px 20px; /* Padding */
+            border-radius: 5px; /* Sudut lengkung */
+            cursor: pointer; /* Ganti kursor saat mengarahkan */
+        }
+
+        .home-button:hover {
+            background-color: #0056b3; /* Warna latar belakang saat hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Tower Lamp</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <a href="index.html" class="logo"><img class="img-fluid able-logo" src="/assets/images/logo.png"
+                        alt="Theme-logo"></a>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">CN UNIT</span>
+                    </div>
+                    <input type="text" id="codeName" class="form-control" placeholder="Masukkan Code unit" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+                <!-- <div class="custom-control custom-switch mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                    <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
+                </div> -->
+                <!-- <button id="turnOnButton" class="btn btn-success btn-lg btn-block">Nyalakan Engine</button>
+                <button id="turnOffButton" class="btn btn-danger btn-lg btn-block">Matikan Engine</button> -->
+
+                <button id="toggleButton" class="btn btn-success btn-lg btn-block mb-3" onclick="toggleApiRequest()">Turn On</button>
+                <a href="/" class="btn btn-primary home-button">Back to Home</a>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap JS (untuk beberapa fitur Bootstrap) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Axios (untuk melakukan permintaan HTTP) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Fungsi untuk menyalakan Engine    
+        let isApiRequestOn = false;
+        let statusEngine = false;
+
+        function toggleApiRequest() {
+            // Toggle the state
+            isApiRequestOn = !isApiRequestOn;
+            
+            // Get the text input value
+            let textCodeName = document.getElementById('codeName').value;
+            let button = document.getElementById('toggleButton');
+            let buttonText = button.textContent || button.innerText;
+            if(buttonText === 'Turn On'){
+                statusEngine = true
+            }else{
+                statusEngine = false
+            }
+            
+            // Check if the API request should be made
+            if (isApiRequestOn) {
+                // Make a POST request to your API using Axios
+                axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+                .then(function (response) {
+                    console.log('Data sent successfully:', response.data);
+                    // Add your logic here for what to do after successful submission
+                })
+                .catch(function (error) {
+                    console.error('Error sending data:', error);
+                    // Add your logic here for error handling
+                });
+                // Change the button text to "Turn Off"
+                document.getElementById('toggleButton').innerText = 'Turn Off';
+                document.getElementById('toggleButton').classList.remove('btn-success');
+                document.getElementById('toggleButton').classList.add('btn-danger');
+            } else {
+                // Make a POST request to your API using Axios
+                axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+                .then(function (response) {
+                    console.log('Data sent successfully:', response.data);
+                    // Add your logic here for what to do after successful submission
+                })
+                .catch(function (error) {
+                    console.error('Error sending data:', error);
+                    // Add your logic here for error handling
+                });
+                // Change the button text to "Turn On"
+                document.getElementById('toggleButton').innerText = 'Turn On';
+                document.getElementById('toggleButton').classList.remove('btn-danger');
+                document.getElementById('toggleButton').classList.add('btn-success');
+            }
+        }
+
+        // Panggil fungsi saat halaman dimuat
+        window.onload = function() {
+            // Kirim permintaan GET ke route /towerlamp/device/{ambil data id} menggunakan Axios
+             axios.get('http://localhost:3000/device/v1/towerlamp/data-realtime?codeName=xx123') // Ganti '123' dengan logika untuk mengambil ID yang sesuai
+                .then(function(response) {
+                    // Tampilkan ID yang diterima dari server
+                    document.getElementById('codeName').value = JSON.parse(JSON.stringify(response.data.data[0].codeName));
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+        
+        };
+
+        
+    </script>
+</body>
+</html>

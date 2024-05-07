@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Realtime</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <!-- alamat icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <!-- Google font-->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet"> -->
+    <!-- themify -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+    <!-- iconfont -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+    <!-- simple line icon -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/simple-line-icons/css/simple-line-icons.css">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Chartlist chart css -->
+    <link rel="stylesheet" href="/assets/plugins/chartist/dist/chartist.css" type="text/css" media="all">
+    <!-- Weather css -->
+    <link href="/assets/css/svg-weather.css" rel="stylesheet">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+    <!-- Responsive.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css">
+    <!-- preloder -->
+    <link rel="stylesheet" href="/assets/plugins/Holdon/HoldOn.min.css">
+    <!-- Button Toogle -->
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <!-- select2 -->
+    <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" integrity="sha512-kq3FES+RuuGoBW3a9R2ELYKRywUEQv0wvPTItv3DSGqjpbNtGWVdvT8qwdKkqvPzT93jp8tSF4+oN4IeTEIlQA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" integrity="sha512-CbQfNVBSMAYmnzP3IC+mZZmYMP2HUnVkV4+PwuhpiMUmITtSpS7Prr3fNncV1RBOnWxzz4pYQ5EAGG4ck46Oig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .dd-m-button {
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+            opacity: 0.8;
+            width: 40px;
+            height: 40px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -moz-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -moz-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background-color: #25d366;
+            -webkit-transition: 0.3s all ease;
+            -o-transition: 0.3s all ease;
+            -moz-transition: 0.3s all ease;
+            transition: 0.3s all ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #25d366;
+        }
+
+        .dd-m-button:hover {
+            -webkit-transform: translateY(-5px);
+            -moz-transform: translateY(-5px);
+            -ms-transform: translateY(-5px);
+            -o-transform: translateY(-5px);
+            transform: translateY(-5px);
+            -webkit-box-shadow: 0 5px 15px 2px rgba(37, 211, 102, 0.3);
+            -moz-box-shadow: 0 5px 15px 2px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 5px 15px 2px rgba(37, 211, 102, 0.3);
+        }
+
+        .dd-m-button .icon {
+            width: 50%;
+            height: 50%;
+            display: block;
+            fill: #fff;
+            -webkit-transform: translateX(1px);
+            -moz-transform: translateX(1px);
+            -ms-transform: translateX(1px);
+            -o-transform: translateX(1px);
+            transform: translateX(1px);
+        }
+
+        .dd-m-button .icon {
+            width: 70%;
+            height: 70%;
+            background-image: url("/assets/images/question2.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 70%;
+        }
+
+        .btn {
+            border-radius: 5px;
+            background: #2babf3;
+            color: white;
+            /* width: 260px; */
+        }
+
+        /* filter */
+        .nav-tabs {
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-tabs .nav-link {
+            border-radius: 0;
+        }
+
+        .nav-tabs>li>a {
+            margin-right: 0;
+            color: #888;
+            border-radius: 0;
+        }
+
+        .nav-tabs .nav-link:focus,
+        .nav-tabs .nav-link:hover {
+            background-color: #eee;
+            border-color: transparent;
+            color: #333;
+        }
+
+        .nav-tabs.nav-justified>li>a {
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+        .nav-tabs.nav-justified>li>a:hover,
+        .nav-tabs.nav-justified>li>a:focus {
+            border-bottom-color: #ddd;
+        }
+
+        .nav-tabs.nav-justified.nav-tabs-solid>li>a {
+            border-color: transparent;
+        }
+
+        .nav-tabs.nav-tabs-solid>li>a {
+            color: #bbc4cc;
+        }
+
+        .nav-tabs.nav-tabs-solid>li>a.active,
+        .nav-tabs.nav-tabs-solid>li>a.active:hover,
+        .nav-tabs.nav-tabs-solid>li>a.active:focus {
+            background-color: #ff9b44;
+            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4);
+            border-color: #ff9b44;
+            font-weight: bolder;
+            color: #1e2730;
+        }
+
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded {
+            border-radius: 5px;
+            background: #ebeff2;
+        }
+
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a {
+            border-radius: 5px;
+        }
+
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a.active,
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a.active:hover,
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a.active:focus {
+            border-radius: 5px;
+        }
+
+        .nav-tabs-justified>li>a {
+            border-radius: 0;
+            margin-bottom: 0;
+            border-color: #ddd;
+        }
+
+        .nav-tabs-justified>li>a:hover,
+        .nav-tabs-justified>li>a:focus {
+            border-bottom-color: #ddd;
+        }
+
+        .nav-tabs-justified.nav-tabs-solid>li>a {
+            border-color: transparent;
+        }
+
+        .progress {
+            margin: 10px 0px 5px 10px;
+            width: 700px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body class="sidebar-mini fixed">
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <div class="wrapper">
+        <!-- Navbar-->
+        <header class="main-header-top hidden-print" style="background-color: #fff;">
+            <a href="/" class="logo"><img class="img-fluid able-logo" src="/assets/images/logo.png"
+                alt="Theme-logo"></a>
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#!" data-toggle="offcanvas" class="sidebar-toggle"
+                style="box-shadow: 0px 0px 7px rgb(0 0 0 /5%);"></a>
+                <ul class="top-nav lft-nav">
+                <li>
+                    <!-- dapat isi disini -->
+                </li>
+                </ul>
+                <!-- Navbar Right Menu-->
+                <div class="navbar-custom-menu f-right">
+                <ul class="top-nav">
+                    <!-- window screen -->
+                    <li class="nav-item dropdown has-arrow main-drop" style="box-shadow: 0px 0px 7px rgb(0 0 0 /5%);">
+                        <a href="#!" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                            class="dropdown-toggle drop icon-circle drop-image">
+                            <span><img class="img-circle " src="/assets/images/avatar-7.png"
+                                style="width:30px; padding-right: 5px;" alt="User Image"></span>
+                            <span> Account <i class=" icofont icofont-simple-down"></i></span>
+                        </a>
+                        <ul class="dropdown-menu settings-menu">
+                            <li><a href="#"><i class="accordion.html"></i> Account</a></li>
+                            <li><a href="#"><i class="icon-lock"></i> Tags</a></li>
+                            <li onclick="logOut()"><a href="#"><i class="icon-logout"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                    <!-- User Menu-->
+                    <li class="pc-rheader-submenu">
+                        <a href="#" class="drop icon-circle" onclick="javascript:toggleFullScreen()">
+                            <i class="icon-size-fullscreen"></i>
+                        </a>
+                    </li>
+                </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Side-Nav-->
+        <aside class="main-sidebar hidden-print ">
+            <section class="sidebar" id="sidebar-scroll">
+                <!-- Sidebar Menu-->
+                <ul class="sidebar-menu">
+                <li class="treeview">
+                    <a class="waves-effect waves-dark" href="/">
+                        <i class="icon-home"></i><span> Dashboard</span>
+                    </a>
+                </li>
+                <li class="active treeview"><a class="waves-effect waves-dark" href="#"><i class="icon-speedometer"></i><span>
+                            Monitoring</span><i class="icon-arrow-down"></i></a>
+                    <ul class="treeview-menu">
+                        <li class="active treeview">
+                            <a class="waves-effect waves-dark" href="#">
+                            <i class="icon-arrow-right"></i>
+                            <span>Tower Lamp</span>
+                            <i class="icon-arrow-down"></i>
+                            </a>
+                            <ul id="data-list" class="treeview-menu">
+                                <!-- Data JSON akan ditambahkan di sini -->
+                                <li>
+                                    <a>
+                                        <div id="selectUnit">
+                                            <select class="selectpicker" id="cnunit" class="form-control search"></select>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a class="waves-effect waves-dark" href="/towerlamp/history">
+                        <i class="icon-chart"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                </ul>
+            </section>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Container-fluid starts -->
+            <!-- Main content starts -->
+            <div class="container-fluid" style="background: #f9fbfd;">
+                <!-- <div class="row dashboard-header">
+                    <div class="main-header">
+                        <h4>Tower Lamp</h4>
+                        <ul id="filter1" class="nav nav-tabs nav-tabs-solid nav-tabs-rounded nav-justified mt-2">
+                            <li class="nav-item filter-cycle"><a class="nav-link text-dark h6" href="#"
+                                data-toggle="tab">Realtime</a>
+                            </li>
+                            <li class="nav-item filter-cycle"><a id="codeName" class="nav-link active h6" href="#"
+                                data-toggle="tab">XXXX</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+                <div class="row dashboard-header">
+                    <div class="main-header">
+                        <h4>Tower Lamp</h4>
+                        <ol class="breadcrumb breadcrumb-title breadcrumb-arrow mt-3">
+                            <li class="breadcrumb-item">
+                                <a href="/">
+                                    <span class="icofont icofont-home"></span> Dashboard
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Realtime</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a id="codeName" href="#">XXXX</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row dashboard-header">
+                    <div class="col-lg-8">
+                        <div class="card dashboard-product pb-1" style="border-bottom: 2px solid grey;">
+                            <div class="">
+                                <!-- <h2 id="codeNameRealtime" class="text-dark mb-2 w-100 text-truncate font-weight-medium text-center">XXXX</h2> -->
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr><td>Code Name</td><td id="codeNameRealtime"></td></tr>
+                                                <tr><td>Serial Number</td><td id="serialNumber"></td></tr>
+                                                <tr><td>Brand</td><td id="brand"></td></tr>
+                                                <tr><td>Engine Load</td><td id="engineLoad"></td></tr>
+                                                <tr><td>Engine Speed</td><td id="engineSpeed"></td></tr>
+                                                <tr><td>Fuel Level</td><td id="fuelLevel"></td></tr>
+                                                <tr><td>Tank Temperature</td><td id="tankTemperature"></td></tr>
+                                                <tr><td>Engine Cac Temperature</td><td id="engineCacTemperature"></td></tr>
+                                                <tr><td>Engine Request Speed</td><td id="engineRequestSpeed"></td></tr>
+                                                <tr><td>Engine Hour Meter</td><td id="engineHourMeter"></td></tr>
+                                                <tr><td>Fuel Used</td><td id="fuelUsed"></td></tr>
+                                                <tr><td>Engine Coolant Temperature</td><td id="engineCoolantTemperature"></td></tr>
+                                                <tr><td>Fuel Temperature</td><td id="fuelTemperature"></td></tr>
+                                                <tr><td>Engine Oil Temperature</td><td id="engineOilTemperature"></td></tr>
+                                                <tr><td>Fuel Pressure</td><td id="fuelPressure"></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr><td>Engine Oil Pressure</td><td id="engineOilPressure"></td></tr>
+                                                <tr><td>Fuel Rate</td><td id="fuelRate"></td></tr>
+                                                <tr><td>Engine Boost Pressure</td><td id="engineBoostPressure"></td></tr>
+                                                <tr><td>Engine Air Inlet Temperature</td><td id="engineAirInletTemperature"></td></tr>
+                                                <tr><td>Ambient Temperature</td><td id="ambientTemperature"></td></tr>
+                                                <tr><td>Status Mast</td><td id="towerMast"></td></tr>
+                                                <tr><td>AC Voltage</td><td id="acVoltage"></td></tr>
+                                                <tr><td>AC Current</td><td id="acCurrent"></td></tr>
+                                                <tr><td>AC Freq</td><td id="acFreq"></td></tr>
+                                                <tr><td>Battery</td><td id="battery"></td></tr>
+                                                <tr><td>Charger</td><td id="charger"></td></tr>
+                                                <tr><td>Board Temperature</td><td id="boardTemperature"></td></tr>
+                                                <tr><td>Status Engine</td><td id="statusEngineParm"></td></tr>
+                                                <tr><td>State Lampu 1</td><td id="stateLamp1"></td></tr>
+                                                <tr><td>State Lampu 2</td><td id="stateLamp2"></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card dashboard-product mb-3" style="border-bottom: 2px solid grey">
+                            <div class="mb-2">
+                                <div class="row align-items-center mb-1">
+                                    <div class="col-lg-8">
+                                        <h3 class="text-dark m-0">Switch Key</h3>
+                                    </div>
+                                    <div class="col-lg-4 text-right">
+                                        <img id= "iconKeyStatus" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='grey' d='M12,23a9.63,9.63,0,0,1-8-9.5,9.51,9.51,0,0,1,6.79-9.1A1.66,1.66,0,0,0,12,2.81h0a1.67,1.67,0,0,0-1.94-1.64A11,11,0,0,0,12,23Z'%3E%3CanimateTransform attributeName='transform' dur='1.5s' repeatCount='indefinite' type='rotate' values='0 12 12;360 12 12'/%3E%3C/path%3E%3C/svg%3E" alt="SVG Image">
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        <button id="toggleButtonKey" class="btn btn-success" onclick="toggleApiRequestKey()">Turn On</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card dashboard-product mb-3" style="border-bottom: 2px solid grey">
+                            <div class="mb-2">
+                                <div class="row align-items-center mb-1">
+                                    <div class="col-lg-6">
+                                        <h3 class="text-dark m-0">Engine</h3>
+                                    </div>
+                                    <div class="col-lg-6 text-right">
+                                        <img id= "iconEngineStatus" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='grey' d='M12,23a9.63,9.63,0,0,1-8-9.5,9.51,9.51,0,0,1,6.79-9.1A1.66,1.66,0,0,0,12,2.81h0a1.67,1.67,0,0,0-1.94-1.64A11,11,0,0,0,12,23Z'%3E%3CanimateTransform attributeName='transform' dur='1.5s' repeatCount='indefinite' type='rotate' values='0 12 12;360 12 12'/%3E%3C/path%3E%3C/svg%3E" alt="SVG Image">
+                                    </div>
+                                </div>
+                                <!-- <div class="row align-items-center mt-2 mb-1">
+                                    <div class="col-lg-6">
+                                        <h6>Actions</h6>
+                                    </div>
+                                    <div class="col-lg-6 text-right">
+                                        <h6>Status</h6>
+                                    </div>
+                                </div> -->
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        <button id="toggleButton" class="btn btn-success" onclick="toggleApiRequest()">Start</button>
+                                    </div>
+                                    <!-- <div class="col-lg-6 text-right">
+                                        <span id="statusEngine" class="badge badge-danger rounded-circle p-3"> </span>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card dashboard-product mb-3" style="border-bottom: 2px solid grey">
+                            <div class="mb-2">
+                                <div class="row align-items-center mb-1">
+                                    <div class="col-lg-6">
+                                        <h3 class="text-dark m-0">Lamp 1</h3>
+                                    </div>
+                                    <div class="col-lg-6 text-right">
+                                        <img id= "iconLampStatus" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='grey' d='M12,23a9.63,9.63,0,0,1-8-9.5,9.51,9.51,0,0,1,6.79-9.1A1.66,1.66,0,0,0,12,2.81h0a1.67,1.67,0,0,0-1.94-1.64A11,11,0,0,0,12,23Z'%3E%3CanimateTransform attributeName='transform' dur='1.5s' repeatCount='indefinite' type='rotate' values='0 12 12;360 12 12'/%3E%3C/path%3E%3C/svg%3E" alt="SVG Image">
+                                    </div>
+                                </div>
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-lg-6">
+                                        <button id="toggleButtonLamp" class="btn btn-success" onclick="toggleApiRequestLamp()">Turn On</button>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center mb-1">
+                                    <div class="col-lg-6">
+                                        <h3 class="text-dark m-0">Lamp 2</h3>
+                                    </div>
+                                    <div class="col-lg-6 text-right">
+                                        <img id= "iconLampStatus2" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='grey' d='M12,23a9.63,9.63,0,0,1-8-9.5,9.51,9.51,0,0,1,6.79-9.1A1.66,1.66,0,0,0,12,2.81h0a1.67,1.67,0,0,0-1.94-1.64A11,11,0,0,0,12,23Z'%3E%3CanimateTransform attributeName='transform' dur='1.5s' repeatCount='indefinite' type='rotate' values='0 12 12;360 12 12'/%3E%3C/path%3E%3C/svg%3E" alt="SVG Image">
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        <button id="toggleButtonLamp2" class="btn btn-success" onclick="toggleApiRequestLamp2()">Turn On</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card dashboard-product mb-3" style="border-bottom: 2px solid grey">
+                            <div class="mb-2">
+                                <div class="row align-items-center mb-1">
+                                    <div class="col lg-6">
+                                        <h3 class="text-dark m-0">Mast</h3>
+                                    </div>
+                                    <div class="col-lg-6 text-right">
+                                        <!-- <img id= "iconMastStatusUp" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 20 20'%3E%3Cg fill='black' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cpath d='M5.232 8.974a1 1 0 0 1 .128-1.409l4-3.333a1 1 0 1 1 1.28 1.536l-4 3.334a1 1 0 0 1-1.408-.128'/%3E%3Cpath d='M14.768 8.974a1 1 0 0 1-1.408.128l-4-3.334a1 1 0 1 1 1.28-1.536l4 3.333a1 1 0 0 1 .128 1.409'/%3E%3Cpath d='M10 6a1 1 0 0 1 1 1v8a1 1 0 1 1-2 0V7a1 1 0 0 1 1-1'/%3E%3C/g%3E%3C/svg%3E" alt="SVG Image"> -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <button id="toggleButtonMastUp" class="btn btn-success mr-1" onclick="toggleApiRequestMastUp()">UP</button>
+                                        <button id="toggleButtonMastDown" class="btn btn-danger" onclick="toggleApiRequestMastDown()">DOWN</button>
+                                    </div>
+                                    <div class="col-lg-4 text-right">
+                                        <!-- <img id= "iconMastStatusDown" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 20 20'%3E%3Cg fill='black'%3E%3Cpath fill-rule='evenodd' d='M14.768 11.027a1 1 0 0 1-.128 1.408l-4 3.333a1 1 0 0 1-1.28-1.536l4-3.334a1 1 0 0 1 1.408.129' clip-rule='evenodd'/%3E%3Cpath fill-rule='evenodd' d='M5.232 11.027a1 1 0 0 1 1.408-.129l4 3.334a1 1 0 1 1-1.28 1.536l-4-3.333a1 1 0 0 1-.128-1.408' clip-rule='evenodd'/%3E%3Cpath fill-rule='evenodd' d='M10 14a1 1 0 0 1-1-1V5a1 1 0 1 1 2 0v8a1 1 0 0 1-1 1' clip-rule='evenodd'/%3E%3Cpath d='M1.293 2.707a1 1 0 0 1 1.414-1.414l16 16a1 1 0 0 1-1.414 1.414z'/%3E%3C/g%3E%3C/svg%3E" alt="SVG Image" class="mt-3"> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Required Jqurey -->
+<script src="/assets/plugins/Jquery/dist/jquery.min.js"></script>
+<script src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+
+<!-- Fremwork -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Scrollbar JS-->
+<script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="/assets/plugins/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+
+<!--classic JS-->
+<script src="/assets/plugins/classie/classie.js"></script>
+
+<!-- Counter js  -->
+<script src="/assets/plugins/waypoints/jquery.waypoints.min.js"></script>
+<script src="/assets/plugins/countdown/js/jquery.counterup.js"></script>
+
+<!-- preloder -->
+<script src="/assets/plugins/Holdon/HoldOn.min.js"></script>
+<!-- login -->
+<script src='/assets/js/auth_login.js'></script>
+<script src='/assets/js/init_login.js'></script>
+<!-- notification -->
+<script src="/assets/plugins/notification/js/bootstrap-growl.min.js"></script>
+
+<!-- custom js -->
+<script type="text/javascript" src="/assets/js/main.min.js"></script>
+<script type="text/javascript" src="/assets/pages/dashboard.js"></script>
+<script type="text/javascript" src="/assets/pages/elements.js"></script>
+<script src="/assets/js/menu.min.js"></script>
+<!-- Socket.io -->
+<script src="https://cdn.socket.io/4.1.3/socket.io.js"></script>
+<!-- Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+<!-- select2 -->
+<script src="/assets/plugins/select2/dist/js/select2.min.js"></script>
+<script>
+    localStorage.removeItem("statusKey");
+    localStorage.removeItem("statusEngine");
+    localStorage.removeItem("statusLamp");
+    localStorage.removeItem("statusLamp2");
+    const codeName = window.location.pathname.split('/').pop();
+    document.getElementById('codeName').textContent = codeName;
+
+    //get semua data TL untuk ditampilkan di side bar
+    const currentURL = window.location.href;
+    const fetchData = async () => {
+        try {
+            // Kirim permintaan Untuk Akses semua data Towerlamp
+            const response = await axios.get('http://localhost:3000/device/v1/towerlamp/realtime');
+            
+            // Tangkap data yang diterima dari server
+            const data = response.data;
+            
+            // Dapatkan elemen <ul> untuk menambahkan data JSON
+            const dataList = document.getElementById('data-list');
+            
+            // Loop melalui setiap item dalam data JSON
+            data.forEach(item => {
+                // Buat elemen <li> untuk setiap item
+                const listItem = document.createElement('li');
+
+                // Buat elemen <a> untuk menampilkan detail item
+                const link = document.createElement('a');
+                link.id = item.codeName;
+                link.classList.add('waves-effect', 'waves-dark');
+
+                // Buat elemen <i> untuk ikon
+                const icon = document.createElement('i');
+                icon.classList.add('icon-arrow-right');
+
+                // Buat elemen <span> untuk nama kode
+                const span = document.createElement('span');
+                span.textContent = item.codeName;
+
+                // Gabungkan elemen <i> dan <span> ke dalam elemen <a>
+                link.appendChild(icon);
+                link.appendChild(span);
+
+                // Tambahkan elemen <a> ke dalam elemen <li>
+                listItem.appendChild(link);
+
+                // Cek apakah codeName sama dengan bagian akhir URL
+                if (currentURL.endsWith(item.codeName)) {
+                    // Jika ya, tambahkan kelas 'active'
+                    listItem.classList.add('active');
+                    // Tambahkan elemen <li> ke dalam elemen <ul>
+                    dataList.appendChild(listItem);
+                }
+
+                // Tambahkan event listener click ke setiap elemen <a>
+                link.addEventListener('click', () => {
+                    handleClick(item.codeName);
+                });
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const handleClick = async (codeName) => {
+        try {
+                // Lakukan pengalihan halaman dengan melakukan permintaan ke route /device/towerlamp/codeName
+                const redirectResponse = await axios.get(`/towerlamp/realtime/${codeName}`);
+                
+                // Redirect pengguna ke halaman baru
+                window.location.href = redirectResponse.request.responseURL;
+        } catch (error) {
+                console.error('Error:', error);
+        }
+    };
+
+    fetchData();
+
+    //get realtime data dan komunikasi tombol engine, lampu
+    let isApiRequestOn = false;
+    let statusKey = false;
+    let statusEngine = false;
+    let statusLamp = false;
+    let statusLamp2 = false;
+
+    function toggleApiRequestKey() {
+        isApiRequestOn = !isApiRequestOn;
+        let textCodeName = codeName;
+        let button = document.getElementById('toggleButtonKey');
+        let buttonText = button.textContent || button.innerText;
+        if(buttonText === 'Turn On'){
+            statusKey = true
+        }else{
+            statusKey = false
+        }
+
+        //Mengaktifkan tombol
+        button.disabled = false;
+
+        if (isApiRequestOn) {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send-key', { codeName: textCodeName, key_control: statusKey })
+            .then(function (response) {
+                console.log('Data sent successfully:', response.data);
+                if(statusKey === true){
+                    statusKey = "key on"
+                }else{
+                    statusKey = "key off"
+                }
+                localStorage.setItem("statusKey", statusKey);
+                const statusKeyLocalStorage = localStorage.getItem("statusKey");
+                console.log(statusKeyLocalStorage);
+            })
+            .catch(function (error) {
+                console.error('Error sending data:', error);
+            });
+        } else {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send-key', { codeName: textCodeName, key_control: statusKey })
+            .then(function (response) {
+                console.log('Data sent successfully:', response.data);
+                if(statusKey === true){
+                    statusKey = "key on"
+                }else{
+                    statusKey = "key off"
+                }
+                localStorage.setItem("statusKey", statusKey);
+                const statusKeyLocalStorage = localStorage.getItem("statusKey");
+                console.log(statusKeyLocalStorage);
+            })
+            .catch(function (error) {
+                console.error('Error sending data:', error);
+            });
+            
+        }
+    }
+
+    function toggleApiRequest() {
+        isApiRequestOn = !isApiRequestOn;
+        let textCodeName = codeName;
+        // let textCodeName = document.getElementById('codeName').value;
+        let button = document.getElementById('toggleButton');
+        let buttonText = button.textContent || button.innerText;
+        if(buttonText === 'Start'){
+            statusEngine = true
+        }else{
+            statusEngine = false
+        }
+
+        //Mengaktifkan tombol
+        button.disabled = false;
+
+        if (isApiRequestOn) {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+            .then(function (response) {
+                console.log('Data sent successfully:', response.data);
+                if(statusEngine === true){
+                    statusEngine = "engine on"
+                }else{
+                    statusEngine = "engine off"
+                }
+                localStorage.setItem("statusEngine", statusEngine);
+                const statusEngineLocalStorage = localStorage.getItem("statusEngine");
+                console.log(statusEngineLocalStorage);
+            })
+            .catch(function (error) {
+                console.error('Error sending data:', error);
+            });
+        } else {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+            .then(function (response) {
+                console.log('Data sent successfully:', response.data);
+                if(statusEngine === true){
+                    statusEngine = "engine on"
+                }else{
+                    statusEngine = "engine off"
+                }
+                localStorage.setItem("statusEngine", statusEngine);
+                const statusEngineLocalStorage = localStorage.getItem("statusEngine");
+                console.log(statusEngineLocalStorage);
+            })
+            .catch(function (error) {
+                console.error('Error sending data:', error);
+            });
+            
+        }
+    }
+
+    function toggleApiRequestLamp() {
+        isApiRequestOn = !isApiRequestOn;
+        let textCodeName = codeName;
+        // let textCodeName = document.getElementById('codeName').value;
+        let button = document.getElementById('toggleButtonLamp');
+        let buttonText = button.textContent || button.innerText;
+        if(buttonText === 'Turn On'){
+            statusLamp = true
+        }else{
+            statusLamp = false
+        }
+
+        //Mengaktifkan tombol
+        button.disabled = false;
+
+        if (isApiRequestOn) {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send-lamp', { codeName: textCodeName, lamp_control: statusLamp })
+            .then(function (response) {
+                console.log('Data sent successfully:', response.data);
+                if(statusLamp === true){
+                    statusLamp = "lamp on"
+                }else{
+                    statusLamp = "lamp off"
+                }
+                localStorage.setItem("statusLamp", statusLamp);
+                const statusLampLocalStorage = localStorage.getItem("statusLamp");
+                console.log(statusLampLocalStorage);
+            })
+            .catch(function (error) {
+                console.error('Error sending data:', error);
+            });
+        } else {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send-lamp', { codeName: textCodeName, lamp_control: statusLamp })
+            .then(function (response) {
+                console.log('Data sent successfully:', response.data);
+                if(statusLamp === true){
+                    statusLamp = "lamp on"
+                }else{
+                    statusLamp = "lamp off"
+                }
+                localStorage.setItem("statusLamp", statusLamp);
+                const statusLampLocalStorage = localStorage.getItem("statusLamp");
+                console.log(statusLampLocalStorage);
+            })
+            .catch(function (error) {
+                console.error('Error sending data:', error);
+            });
+            
+        }
+    }
+
+    function toggleApiRequestLamp2() {
+        isApiRequestOn = !isApiRequestOn;
+        let textCodeName = codeName;
+        // let textCodeName = document.getElementById('codeName').value;
+        let button = document.getElementById('toggleButtonLamp2');
+        let buttonText = button.textContent || button.innerText;
+        if(buttonText === 'Turn On'){
+            statusLamp2 = true
+        }else{
+            statusLamp2 = false
+        }
+
+        //Mengaktifkan tombol
+        button.disabled = false;
+
+        if (isApiRequestOn) {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send-lamp', { codeName: textCodeName, lamp2_control: statusLamp2 })
+            .then(function (response) {
+                console.log('Data sent successfully:', response.data);
+                if(statusLamp2 === true){
+                    statusLamp2 = "lamp2 on"
+                }else{
+                    statusLamp2 = "lamp2 off"
+                }
+                localStorage.setItem("statusLamp2", statusLamp2);
+                const statusLampLocalStorage = localStorage.getItem("statusLamp2");
+                console.log(statusLampLocalStorage);
+            })
+            .catch(function (error) {
+                console.error('Error sending data:', error);
+            });
+        } else {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send-lamp', { codeName: textCodeName, lamp2_control: statusLamp2 })
+            .then(function (response) {
+                console.log('Data sent successfully:', response.data);
+                if(statusLamp2 === true){
+                    statusLamp2 = "lamp2 on"
+                }else{
+                    statusLamp2 = "lamp2 off"
+                }
+                localStorage.setItem("statusLamp2", statusLamp2);
+                const statusLampLocalStorage = localStorage.getItem("statusLamp2");
+                console.log(statusLampLocalStorage);
+            })
+            .catch(function (error) {
+                console.error('Error sending data:', error);
+            });
+            
+        }
+    }
+
+    //Penyesuaian Data Realtime yang akan ditampilkan
+    // axios.get(`http://localhost:3000/device/v1/towerlamp/data-realtime?codeName=${codeName}`)
+    //     .then(function(response) {
+    //         document.getElementById('codeName').value = JSON.parse(JSON.stringify(response.data.data[0].codeName));
+    //         console.log(response.data);
+    //     })
+    //     .catch(function(error) {
+    //         console.error('Error:', error);
+    //     });
+
+    const socket = io('http://localhost:4000');
+    let currentData = [];
+
+    // socket.on('initialData', (data) => {
+    //     currentData = data;
+    //     displayData(currentData);
+    // });
+
+    socket.on('newData', (data) => {
+        currentData = data;
+        displayData(currentData);
+    });
+
+    function displayData(data) {
+        let buttonKey = document.getElementById('toggleButtonKey');
+        let buttonEngine = document.getElementById('toggleButton');
+        let buttonLamp = document.getElementById('toggleButtonLamp');
+        let buttonLamp2 = document.getElementById('toggleButtonLamp2');
+        let buttonMastUp = document.getElementById('toggleButtonMastUp');
+        let buttonMastDown = document.getElementById('toggleButtonMastDown');
+        // Mengubah struktur data
+        let newData = data.length > 0 ? data[0] : {};
+        document.getElementById('codeNameRealtime').textContent = newData.codeName;
+        document.getElementById('serialNumber').textContent = newData.serialNumber;
+        document.getElementById('brand').textContent = newData.brand;
+        document.getElementById('engineLoad').textContent = newData.engineLoad;
+        document.getElementById('engineSpeed').textContent = newData.engineSpeed;
+        document.getElementById('fuelLevel').textContent = newData.fuelLevel;
+        document.getElementById('tankTemperature').textContent = newData.tankTemperature + ' °C';
+        document.getElementById('engineCacTemperature').textContent = newData.engineCacTemperature + ' °C';
+        document.getElementById('engineRequestSpeed').textContent = newData.engineRequestSpeed;
+        document.getElementById('engineHourMeter').textContent = newData.engineHourMeter;
+        document.getElementById('fuelUsed').textContent = newData.fuelUsed;
+        document.getElementById('engineCoolantTemperature').textContent = newData.engineCoolantTemperature + ' °C';
+        document.getElementById('fuelTemperature').textContent = newData.fuelTemperature;
+        document.getElementById('engineOilTemperature').textContent = newData.engineOilTemperature + ' °C';
+        document.getElementById('fuelPressure').textContent = newData.fuelPressure;
+        document.getElementById('engineOilPressure').textContent = newData.engineOilPressure;
+        document.getElementById('fuelRate').textContent = newData.fuelRate;
+        document.getElementById('engineBoostPressure').textContent = newData.engineBoostPressure;
+        document.getElementById('engineAirInletTemperature').textContent = newData.engineAirInletTemperature + ' °C';
+        document.getElementById('ambientTemperature').textContent = newData.ambientTemperature + ' °C';
+        document.getElementById('towerMast').textContent = newData.towerMast;
+        document.getElementById('acVoltage').textContent = newData.acVoltage;
+        document.getElementById('acCurrent').textContent = newData.acCurrent;
+        document.getElementById('acFreq').textContent = newData.acFreq;
+        document.getElementById('battery').textContent = newData.battery;
+        document.getElementById('charger').textContent = newData.charger;
+        document.getElementById('boardTemperature').textContent = newData.boardTemperature + ' °C';
+        document.getElementById('statusEngineParm').textContent = newData.statusEngineParm;
+        document.getElementById('stateLamp1').textContent = newData.stateLamp1;
+        document.getElementById('stateLamp2').textContent = newData.stateLamp2;
+
+        if(newData.statusKey.statusKeyControl === "key off" && newData.statusEngine.statusEngineControl === "engine off"){
+            document.getElementById('toggleButtonKey').innerText = 'Turn On';
+            document.getElementById('toggleButtonKey').classList.remove('btn-danger');
+            document.getElementById('toggleButtonKey').classList.add('btn-success');
+            document.getElementById('iconKeyStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff5252' d='m10.7 13.53l-1.71-1.71c.01.06.01.12.01.18c0 1.1-.9 2-2 2s-2-.9-2-2s.9-2 2-2c.06 0 .12 0 .18.01L5.47 8.3C4.02 8.9 3 10.33 3 12c0 2.21 1.79 4 4 4c1.67 0 3.1-1.02 3.7-2.47m1.49 1.49A6.012 6.012 0 0 1 7 18c-3.31 0-6-2.69-6-6c0-2.21 1.2-4.15 2.98-5.19L1.39 4.22L2.8 2.81l18.38 18.38l-1.41 1.41zm4.07-1.59l1.24-.93l1.81 1.36L21.17 12l-1-1h-6.34l-2-2H21l3 3l-4.5 4.5l-.69-.51z'/%3E%3C/svg%3E`;
+            document.getElementById('iconEngineStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff5252' d='m2.5 3.77l4.37 4.37L5 10v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-.73l3.23 3.23l1.27-1.28L3.78 2.5zM16 18h-5l-2-2H7v-5l1-1h.73L16 17.27zm7-9v10h-.18L16 12.18V10h-2.18l-6-6H15v2h-3v2h6v4h2V9z'/%3E%3C/svg%3E`;
+            document.getElementById('iconLampStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+            document.getElementById('iconLampStatus2').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+            if(newData.statusKey.statusKeyControl === localStorage.getItem("statusKey") || localStorage.getItem("statusKey") === null){
+                buttonKey.disabled = false;
+            }else{
+                buttonKey.disabled = true;
+            }
+            buttonEngine.disabled = true;
+            buttonLamp.disabled = true;
+            buttonLamp2.disabled = true;
+            buttonKey.disabled = false;
+        }else if(newData.statusKey.statusKeyControl === "key on"){
+            document.getElementById('toggleButtonKey').innerText = 'Turn Off';
+            document.getElementById('toggleButtonKey').classList.remove('btn-success');
+            document.getElementById('toggleButtonKey').classList.add('btn-danger');
+            document.getElementById('iconKeyStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='%234caf50' d='M20.59 10h-7.94a6.004 6.004 0 0 0-6.88-3.88c-2.29.46-4.15 2.3-4.63 4.58A6.002 6.002 0 0 0 7 18a5.99 5.99 0 0 0 5.65-4H13l1.29 1.29c.39.39 1.02.39 1.41 0L17 14l1.29 1.29c.39.39 1.03.39 1.42 0l2.59-2.61a.999.999 0 0 0-.01-1.42l-.99-.97c-.2-.19-.45-.29-.71-.29M7 15c-1.65 0-3-1.35-3-3s1.35-3 3-3s3 1.35 3 3s-1.35 3-3 3'/%3E%3C/svg%3E`;
+            if(newData.statusKey.statusKeyControl === localStorage.getItem("statusKey") || localStorage.getItem("statusKey") === null){
+                buttonKey.disabled = false;
+            }else{
+                buttonKey.disabled = true;
+            }
+        }
+
+        //Jika Parameter jadi kondisi engine untuk bisa dinyalakan
+        // if(newData.statusEngine.statusEngineControl === "engine off" && newData.statusKey.statusKeyControl === "key on" && newData.fuelLevel < 500){
+        //     document.getElementById('toggleButton').innerText = 'Start';
+        //     document.getElementById('toggleButton').classList.remove('btn-danger');
+        //     document.getElementById('toggleButton').classList.add('btn-success');
+        //     // document.getElementById('statusEngine').classList.remove('badge-success');
+        //     // document.getElementById('statusEngine').classList.add('badge-danger');
+        //     document.getElementById('iconEngineStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff5252' d='m2.5 3.77l4.37 4.37L5 10v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-.73l3.23 3.23l1.27-1.28L3.78 2.5zM16 18h-5l-2-2H7v-5l1-1h.73L16 17.27zm7-9v10h-.18L16 12.18V10h-2.18l-6-6H15v2h-3v2h6v4h2V9z'/%3E%3C/svg%3E`;
+        //     document.getElementById('iconLampStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+        //     document.getElementById('iconLampStatus2').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+        //     if(newData.statusEngine.statusEngineControl === localStorage.getItem("statusEngine") || localStorage.getItem("statusEngine") === null){
+        //         buttonEngine.disabled = false;
+        //     }else{
+        //         buttonEngine.disabled = true;
+        //     }
+        //     buttonLamp.disabled = true;
+        //     buttonLamp2.disabled = true;
+        // }else if(newData.statusEngine.statusEngineControl === "engine on"){
+        //     document.getElementById('toggleButton').innerText = 'Stop';
+        //     document.getElementById('toggleButton').classList.remove('btn-success');
+        //     document.getElementById('toggleButton').classList.add('btn-danger');
+        //     // document.getElementById('statusEngine').classList.remove('badge-danger');
+        //     // document.getElementById('statusEngine').classList.add('badge-success');
+        //     document.getElementById('iconEngineStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='%234caf50' d='M7 4v2h3v2H7l-2 2v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-4h2v3h3V9h-3v3h-2V8h-6V6h3V4z'/%3E%3C/svg%3E`;
+        //     if(newData.statusEngine.statusEngineControl === localStorage.getItem("statusEngine") || localStorage.getItem("statusEngine") === null){
+        //         buttonEngine.disabled = false;
+        //     }else{
+        //         buttonEngine.disabled = true;
+        //     }
+        //     buttonLamp.disabled = false;
+        //     buttonLamp2.disabled = false;
+        // }else{
+        //     document.getElementById('iconEngineStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff5252' d='m2.5 3.77l4.37 4.37L5 10v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-.73l3.23 3.23l1.27-1.28L3.78 2.5zM16 18h-5l-2-2H7v-5l1-1h.73L16 17.27zm7-9v10h-.18L16 12.18V10h-2.18l-6-6H15v2h-3v2h6v4h2V9z'/%3E%3C/svg%3E`;
+        //     document.getElementById('iconLampStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+        //     document.getElementById('iconLampStatus2').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+        //     buttonEngine.disabled = true;
+        //     buttonLamp.disabled = true;
+        //     buttonLamp2.disabled = true;
+        // }
+
+        if(newData.statusEngine.statusEngineControl === "engine off" && newData.statusKey.statusKeyControl === "key on"){
+            document.getElementById('toggleButton').innerText = 'Start';
+            document.getElementById('toggleButton').classList.remove('btn-danger');
+            document.getElementById('toggleButton').classList.add('btn-success');
+            // document.getElementById('statusEngine').classList.remove('badge-success');
+            // document.getElementById('statusEngine').classList.add('badge-danger');
+            document.getElementById('iconEngineStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff5252' d='m2.5 3.77l4.37 4.37L5 10v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-.73l3.23 3.23l1.27-1.28L3.78 2.5zM16 18h-5l-2-2H7v-5l1-1h.73L16 17.27zm7-9v10h-.18L16 12.18V10h-2.18l-6-6H15v2h-3v2h6v4h2V9z'/%3E%3C/svg%3E`;
+            document.getElementById('iconLampStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+            document.getElementById('iconLampStatus2').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+            if(newData.statusEngine.statusEngineControl === localStorage.getItem("statusEngine") || localStorage.getItem("statusEngine") === null){
+                buttonEngine.disabled = false;
+            }else{
+                buttonEngine.disabled = true;
+            }
+            buttonLamp.disabled = true;
+            buttonLamp2.disabled = true;
+        }else if(newData.statusEngine.statusEngineControl === "engine on"){
+            document.getElementById('toggleButton').innerText = 'Stop';
+            document.getElementById('toggleButton').classList.remove('btn-success');
+            document.getElementById('toggleButton').classList.add('btn-danger');
+            // document.getElementById('statusEngine').classList.remove('badge-danger');
+            // document.getElementById('statusEngine').classList.add('badge-success');
+            document.getElementById('iconEngineStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cpath fill='%234caf50' d='M7 4v2h3v2H7l-2 2v3H3v-3H1v8h2v-3h2v3h3l2 2h8v-4h2v3h3V9h-3v3h-2V8h-6V6h3V4z'/%3E%3C/svg%3E`;
+            if(newData.statusEngine.statusEngineControl === localStorage.getItem("statusEngine") || localStorage.getItem("statusEngine") === null){
+                buttonEngine.disabled = false;
+            }else{
+                buttonEngine.disabled = true;
+            }
+            buttonLamp.disabled = false;
+            buttonLamp2.disabled = false;
+        }
+
+        if(newData.statusLamp.statusLampControl === "lamp off" && newData.statusEngine.statusEngineControl === "engine on"){
+            document.getElementById('toggleButtonLamp').innerText = 'Turn On';
+            document.getElementById('toggleButtonLamp').classList.remove('btn-danger');
+            document.getElementById('toggleButtonLamp').classList.add('btn-success');
+            // document.getElementById('statusLamp').classList.remove('badge-success');
+            // document.getElementById('statusLamp').classList.add('badge-danger');
+            document.getElementById('iconLampStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+            if(newData.statusLamp.statusLampControl === localStorage.getItem("statusLamp") || localStorage.getItem("statusLamp") === null){
+                buttonLamp.disabled = false;
+            }else{
+                buttonLamp.disabled = true;
+            }
+        }else if(newData.statusLamp.statusLampControl === "lamp on"){
+            document.getElementById('toggleButtonLamp').innerText = 'Turn Off';
+            document.getElementById('toggleButtonLamp').classList.remove('btn-success');
+            document.getElementById('toggleButtonLamp').classList.add('btn-danger');
+            // document.getElementById('statusLamp').classList.remove('badge-danger');
+            // document.getElementById('statusLamp').classList.add('badge-success');
+            document.getElementById('iconLampStatus').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cg fill='%23FFDE33'%3E%3Cpath stroke='%23FFDE33' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' rx='1'/%3E%3C/g%3E%3C/svg%3E`;
+            if(newData.statusLamp.statusLampControl === localStorage.getItem("statusLamp") || localStorage.getItem("statusLamp") === null){
+                buttonLamp.disabled = false;
+            }else{
+                buttonLamp.disabled = true;
+            }
+            buttonEngine.disabled = true;
+            buttonKey.disabled = true;
+        }
+        
+        if(newData.statusLamp.statusLamp2Control === "lamp2 off" && newData.statusEngine.statusEngineControl === "engine on"){
+            document.getElementById('toggleButtonLamp2').innerText = 'Turn On';
+            document.getElementById('toggleButtonLamp2').classList.remove('btn-danger');
+            document.getElementById('toggleButtonLamp2').classList.add('btn-success');
+            document.getElementById('iconLampStatus2').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cmask id='lineMdLightbulbOff0'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' fill='%23fff' rx='1'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='2' transform='rotate(45 13 12)'%3E%3Cpath stroke='%23000' d='M0 11h24'/%3E%3Cpath stroke='%23fff' d='M1 13h22'/%3E%3C/g%3E%3C/mask%3E%3Crect width='24' height='24' fill='black' mask='url(%23lineMdLightbulbOff0)'/%3E%3C/svg%3E`;
+            if(newData.statusLamp.statusLamp2Control === localStorage.getItem("statusLamp2") || localStorage.getItem("statusLamp2") === null){
+                buttonLamp2.disabled = false;
+            }else{
+                buttonLamp2.disabled = true;
+            }
+        }else if(newData.statusLamp.statusLamp2Control === "lamp2 on"){
+            document.getElementById('toggleButtonLamp2').innerText = 'Turn Off';
+            document.getElementById('toggleButtonLamp2').classList.remove('btn-success');
+            document.getElementById('toggleButtonLamp2').classList.add('btn-danger');
+            document.getElementById('iconLampStatus2').src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3em' height='3em' viewBox='0 0 24 24'%3E%3Cg fill='%23FFDE33'%3E%3Cpath stroke='%23FFDE33' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 17H9V14.1973C7.2066 13.1599 6 11.2208 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9C18 11.2208 16.7934 13.1599 15 14.1973V17z'/%3E%3Crect width='6' height='2' x='9' y='20' rx='1'/%3E%3C/g%3E%3C/svg%3E`;
+            if(newData.statusLamp.statusLamp2Control === localStorage.getItem("statusLamp2") || localStorage.getItem("statusLamp2") === null){
+                buttonLamp2.disabled = false;
+            }else{
+                buttonLamp2.disabled = true;
+                buttonKey.disabled = true;
+            }
+            buttonEngine.disabled = true;
+            buttonKey.disabled = true;
+        }else if(newData.statusLamp.statusLampControl === "lamp off" && newData.statusLamp.statusLamp2Control === "lamp2 off" && newData.statusEngine.statusEngineControl === "engine on" && newData.statusKey.statusKeyControl === "key on"){
+            buttonEngine.disabled = false;
+            buttonKey.disabled = false;
+        }
+
+        if(newData.towerMast === true){
+            console.log("Mast UP");
+            buttonMastUp.disabled = true;
+            buttonMastDown.disabled = false;
+        }else{
+            console.log("Mast DOWN");
+            buttonMastUp.disabled = false;
+            buttonMastDown.disabled = true;
+        }
+    }
+    socket.emit('getCodeName', codeName);
+
+    $(document).ready(function () {
+        $('#cnunit').select2({
+            width: '100%',
+            allowClear: true,
+            multiple: false,
+            placeholder: 'Select Unit',
+            language: {
+                Results: function () {
+                return null;
+                },
+            },
+            cache: true
+        });
+
+        // request master cn
+        $.ajax({
+            url: "http://localhost:3000/device/v1/towerlamp/realtime",
+            method: "GET",
+            dataType: 'json',
+            success: function (data) {
+                let html = '';
+                let i;
+                $('#cnunit').html('')
+                html += '<option value="">Filter Unit</option>';
+                for (i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].codeName + '">' + data[i].codeName + '</option>';
+                    // console.log(data[i].codeName);
+                }
+                $('#cnunit').html(html)
+            } 
+        });
+
+        $('#cnunit').change(function () {
+            let codeName = $(this).val();
+            localStorage.setItem('codeName', codeName);
+            window.location.href = `/towerlamp/realtime/${codeName}`;
+        });
+    });
+    
+    window.addEventListener('beforeunload', function(event) {
+        // Hapus item dari local storage
+        localStorage.removeItem('codeName'); // Ganti 'key' dengan nama kunci dari data yang ingin Anda hapus
+    });
+</script>
+</html>

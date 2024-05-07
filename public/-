@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Lamp</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        button {
+            padding: 10px 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Tower Lamp</h1>
+        <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">CN UNIT</span>
+                </div>
+                <input type="text" id="codeName" class="form-control" placeholder="Masukkan Code unit" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <!-- <button id="turnOnButton" class="btn btn-success btn-lg btn-block">Nyalakan Engine</button>
+            <button id="turnOffButton" class="btn btn-danger btn-lg btn-block">Matikan Engine</button> -->
+
+            <button id="toggleButton" class="btn btn-success btn-lg btn-block" onclick="toggleApiRequest()">Turn On</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap JS (untuk beberapa fitur Bootstrap) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Axios (untuk melakukan permintaan HTTP) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Fungsi untuk menyalakan Engine    
+        let isApiRequestOn = false;
+
+        function toggleApiRequest() {
+            // Toggle the state
+            isApiRequestOn = !isApiRequestOn;
+            
+            // Get the text input value
+            let textCodeName = document.getElementById('codeName').value;
+
+            let button = document.getElementById('toggleButton');
+            
+            // Mendapatkan status tombol saat ini
+            let statusTombol = button.innerText;
+            // console.log(statusTombol);
+
+            // Memperbarui nilai statusEngine berdasarkan status tombol
+            if (statusTombol === 'Turn On') {
+                statusEngine = true;
+            } else {
+                statusEngine = false;
+            }
+
+            // Check if the API request should be made
+            if (isApiRequestOn) {
+                // Make a POST request to your API using Axios
+                axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+                .then(function (response) {
+                    console.log('Data sent successfully:', response.data);
+                    // Add your logic here for what to do after successful submission
+                })
+                .catch(function (error) {
+                    console.error('Error sending data:', error);
+                    // Add your logic here for error handling
+                });
+                // Change the button text to "Turn Off"
+                document.getElementById('toggleButton').innerText = 'Turn Off';
+                document.getElementById('toggleButton').classList.remove('btn-success');
+                document.getElementById('toggleButton').classList.add('btn-danger');
+            } else {
+                // Make a POST request to your API using Axios
+                axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+                .then(function (response) {
+                    console.log('Data sent successfully:', response.data);
+                    // Add your logic here for what to do after successful submission
+                })
+                .catch(function (error) {
+                    console.error('Error sending data:', error);
+                    // Add your logic here for error handling
+                });
+                // Change the button text to "Turn On"
+                document.getElementById('toggleButton').innerText = 'Turn On';
+                document.getElementById('toggleButton').classList.remove('btn-danger');
+                document.getElementById('toggleButton').classList.add('btn-success');
+            }
+
+            // Memanggil asyncFunction untuk mengirim data dengan status terbaru
+            asyncFunction();
+
+            // let button = document.getElementById('toggleButton');
+            // let buttonText = button.textContent || button.innerText;
+            // let statusEngine = buttonText === 'Turn On';
+            // console.log(statusEngine);
+        }
+
+        const asyncFunction = async () => {
+            try {
+                // Simulasi pengiriman data
+                console.log('Data sent successfully with status:', statusEngine);
+            } catch (error) {
+                console.error('Error sending data:', error);
+            }
+        };
+
+        function turnOnLamp() {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: nilaiCodeName, eng_control: true })
+            // axios.post('/engine/on')
+            .then(function(response) {
+                console.log(response.data);
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+        }
+
+        // Fungsi untuk mematikan Engine
+        function turnOffLamp() {
+            axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName:"#codeName", eng_control: false })
+            // axios.post('/engine/off')
+            .then(function(response) {
+                console.log(response.data);
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+        }
+
+        // Event listener untuk tombol "Nyalakan Engine"
+        // document.getElementById('turnOnButton').addEventListener('click', function() {
+        //     turnOnLamp();
+        // });
+
+        // // Event listener untuk tombol "Matikan Engine"
+        // document.getElementById('turnOffButton').addEventListener('click', function() {
+        //     turnOffLamp();
+        // });
+    </script>
+</body>
+</html>
+
+
+// index.html latest
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Tower Lamp</title>
+</head>
+<body>
+    <h1>Dashboard Tower Lamp</h1>
+    
+    <!-- Tombol untuk mengarahkan ke route /towerlamp/device/{ambil data id} -->
+    <button id="xx123">Menuju Towerlamp XX123</button>
+
+    <!-- Menampilkan ID yang diterima dari server -->
+    <div id="deviceId"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('xx123').addEventListener('click', function() {
+            let codeNameTL1 = document.getElementById('xx123').id;
+
+            // Kirim permintaan GET ke route /towerlamp/device/{ambil data id} menggunakan Axios
+            axios.get(`http://localhost:3000/device/v1/towerlamp/data-realtime?codeName=${codeNameTL1}`)
+                .then(function(response) {
+                    // Tangkap data yang diterima dari server
+                    let codeName = response.data.data[0].codeName;
+
+                    // Lakukan pengalihan halaman dengan melakukan permintaan ke route /device/towerlamp/codeName
+                    axios.get(`http://localhost:4000/towerlamp/device/${codeName}`)
+                        .then(function(redirectResponse) {
+                            // Redirect pengguna ke halaman baru
+                            window.location.href = redirectResponse.request.responseURL;
+                        })
+                        .catch(function(redirectError) {
+                            console.error('Error:', redirectError);
+                        });
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
+</body>
+</html>
+
+//realtime.html latest
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Data</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .data-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .toggle-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Real-time Data</h1>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">CN UNIT</span>
+                    </div>
+                    <input type="text" id="codeName" class="form-control" placeholder="Enter Code unit" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+                <button id="toggleButton" class="btn btn-success btn-lg btn-block toggle-button" onclick="toggleApiRequest()">Turn On</button>
+                <a href="/" class="btn btn-primary btn-lg btn-block mt-3">Back to Home</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Real-time Data List</h3>
+                <ul id="data-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Socket.io -->
+    <script src="https://cdn.socket.io/4.1.3/socket.io.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let isApiRequestOn = false;
+        let statusEngine = false;
+
+        function toggleApiRequest() {
+            isApiRequestOn = !isApiRequestOn;
+            let textCodeName = document.getElementById('codeName').value;
+            let button = document.getElementById('toggleButton');
+            let buttonText = button.textContent || button.innerText;
+            if(buttonText === 'Turn On'){
+                statusEngine = true
+            }else{
+                statusEngine = false
+            }
+
+            if (isApiRequestOn) {
+                axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+                .then(function (response) {
+                    console.log('Data sent successfully:', response.data);
+                })
+                .catch(function (error) {
+                    console.error('Error sending data:', error);
+                });
+                document.getElementById('toggleButton').innerText = 'Turn Off';
+                document.getElementById('toggleButton').classList.remove('btn-success');
+                document.getElementById('toggleButton').classList.add('btn-danger');
+            } else {
+                axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+                .then(function (response) {
+                    console.log('Data sent successfully:', response.data);
+                })
+                .catch(function (error) {
+                    console.error('Error sending data:', error);
+                });
+                document.getElementById('toggleButton').innerText = 'Turn On';
+                document.getElementById('toggleButton').classList.remove('btn-danger');
+                document.getElementById('toggleButton').classList.add('btn-success');
+            }
+        }
+
+        window.onload = function() {
+            axios.get('http://localhost:3000/device/v1/towerlamp/data-realtime?codeName=xx123')
+                .then(function(response) {
+                    document.getElementById('codeName').value = JSON.parse(JSON.stringify(response.data.data[0].codeName));
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+        };
+
+        const socket = io('http://localhost:4000');
+        let currentData = [];
+
+        socket.on('initialData', (data) => {
+            currentData = data;
+            displayData(currentData);
+        });
+
+        socket.on('newData', (data) => {
+            currentData = data;
+            displayData(currentData);
+        });
+
+        function displayData(data) {
+            const dataList = document.getElementById('data-list');
+            dataList.innerHTML = '';
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `Code Unit: ${item.codeName}, HM: ${item.engineHourMeter}, Fuel Used: ${item.fuelUsed}`;
+                li.classList.add('data-item');
+                dataList.appendChild(li);
+            });
+        }
+
+        const codeName = 'xx123';
+        socket.emit('getCodeName', codeName);
+    </script>
+    
+</body>
+</html>
+
+//towerlamp realtime latest
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Data</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .data-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .toggle-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Real-time Data</h1>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">CN UNIT</span>
+                    </div>
+                    <input type="text" id="codeName" class="form-control" placeholder="Enter Code unit" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+                <button id="toggleButton" class="btn btn-success btn-lg btn-block toggle-button" onclick="toggleApiRequest()">Turn On</button>
+                <a href="/" class="btn btn-primary btn-lg btn-block mt-3">Back to Home</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Real-time Data List</h3>
+                <ul id="data-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Socket.io -->
+    <script src="https://cdn.socket.io/4.1.3/socket.io.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let isApiRequestOn = false;
+        let statusEngine = false;
+
+        function toggleApiRequest() {
+            isApiRequestOn = !isApiRequestOn;
+            let textCodeName = document.getElementById('codeName').value;
+            let button = document.getElementById('toggleButton');
+            let buttonText = button.textContent || button.innerText;
+            if(buttonText === 'Turn On'){
+                statusEngine = true
+            }else{
+                statusEngine = false
+            }
+
+            if (isApiRequestOn) {
+                axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+                .then(function (response) {
+                    console.log('Data sent successfully:', response.data);
+                })
+                .catch(function (error) {
+                    console.error('Error sending data:', error);
+                });
+                document.getElementById('toggleButton').innerText = 'Turn Off';
+                document.getElementById('toggleButton').classList.remove('btn-success');
+                document.getElementById('toggleButton').classList.add('btn-danger');
+            } else {
+                axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+                .then(function (response) {
+                    console.log('Data sent successfully:', response.data);
+                })
+                .catch(function (error) {
+                    console.error('Error sending data:', error);
+                });
+                document.getElementById('toggleButton').innerText = 'Turn On';
+                document.getElementById('toggleButton').classList.remove('btn-danger');
+                document.getElementById('toggleButton').classList.add('btn-success');
+            }
+        }
+
+        //Penyesuaian Data Realtime yang akan ditampilkan
+        const codeName = window.location.pathname.split('/').pop();
+        console.log(codeName);
+        axios.get(`http://localhost:3000/device/v1/towerlamp/data-realtime?codeName=${codeName}`)
+            .then(function(response) {
+                document.getElementById('codeName').value = JSON.parse(JSON.stringify(response.data.data[0].codeName));
+                console.log(response.data);
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+
+        const socket = io('http://localhost:4000');
+        let currentData = [];
+
+        socket.on('initialData', (data) => {
+            currentData = data;
+            displayData(currentData);
+        });
+
+        socket.on('newData', (data) => {
+            currentData = data;
+            displayData(currentData);
+        });
+
+        function displayData(data) {
+            const dataList = document.getElementById('data-list');
+            dataList.innerHTML = '';
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `Code Unit: ${item.codeName}, HM: ${item.engineHourMeter}, Fuel Used: ${item.fuelUsed}`;
+                li.classList.add('data-item');
+                dataList.appendChild(li);
+            });
+        }
+
+        socket.emit('getCodeName', codeName);
+    </script>
+    
+</body>
+</html>
+

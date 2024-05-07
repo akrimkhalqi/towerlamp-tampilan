@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <!-- alamat icon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <!-- Google font-->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet"> -->
+    <!-- themify -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+    <!-- iconfont -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+    <!-- simple line icon -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/simple-line-icons/css/simple-line-icons.css">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Chartlist chart css -->
+    <link rel="stylesheet" href="/assets/plugins/chartist/dist/chartist.css" type="text/css" media="all">
+    <!-- Weather css -->
+    <link href="/assets/css/svg-weather.css" rel="stylesheet">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+    <!-- Responsive.css-->
+    <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css">
+    <!-- preloder -->
+    <link rel="stylesheet" href="/assets/plugins/Holdon/HoldOn.min.css">
+
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- select2 -->
+    <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" integrity="sha512-kq3FES+RuuGoBW3a9R2ELYKRywUEQv0wvPTItv3DSGqjpbNtGWVdvT8qwdKkqvPzT93jp8tSF4+oN4IeTEIlQA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" integrity="sha512-CbQfNVBSMAYmnzP3IC+mZZmYMP2HUnVkV4+PwuhpiMUmITtSpS7Prr3fNncV1RBOnWxzz4pYQ5EAGG4ck46Oig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        #map { height: 500px; }
+    </style>
+
+    <style>
+        .dd-m-button {
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+            opacity: 0.8;
+            width: 40px;
+            height: 40px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -moz-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -moz-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background-color: #25d366;
+            -webkit-transition: 0.3s all ease;
+            -o-transition: 0.3s all ease;
+            -moz-transition: 0.3s all ease;
+            transition: 0.3s all ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #25d366;
+        }
+
+        .dd-m-button:hover {
+            -webkit-transform: translateY(-5px);
+            -moz-transform: translateY(-5px);
+            -ms-transform: translateY(-5px);
+            -o-transform: translateY(-5px);
+            transform: translateY(-5px);
+            -webkit-box-shadow: 0 5px 15px 2px rgba(37, 211, 102, 0.3);
+            -moz-box-shadow: 0 5px 15px 2px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 5px 15px 2px rgba(37, 211, 102, 0.3);
+        }
+
+        .dd-m-button .icon {
+            width: 50%;
+            height: 50%;
+            display: block;
+            fill: #fff;
+            -webkit-transform: translateX(1px);
+            -moz-transform: translateX(1px);
+            -ms-transform: translateX(1px);
+            -o-transform: translateX(1px);
+            transform: translateX(1px);
+        }
+
+        .dd-m-button .icon {
+            width: 70%;
+            height: 70%;
+            background-image: url("/assets/images/question2.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 70%;
+        }
+
+        .btn {
+            border-radius: 5px;
+            background: #2babf3;
+            color: white;
+            /* width: 260px; */
+        }
+
+        /* filter */
+        .nav-tabs {
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-tabs .nav-link {
+            border-radius: 0;
+        }
+
+        .nav-tabs>li>a {
+            margin-right: 0;
+            color: #888;
+            border-radius: 0;
+        }
+
+        .nav-tabs .nav-link:focus,
+        .nav-tabs .nav-link:hover {
+            background-color: #eee;
+            border-color: transparent;
+            color: #333;
+        }
+
+        .nav-tabs.nav-justified>li>a {
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+        .nav-tabs.nav-justified>li>a:hover,
+        .nav-tabs.nav-justified>li>a:focus {
+            border-bottom-color: #ddd;
+        }
+
+        .nav-tabs.nav-justified.nav-tabs-solid>li>a {
+            border-color: transparent;
+        }
+
+        .nav-tabs.nav-tabs-solid>li>a {
+            color: #bbc4cc;
+        }
+
+        .nav-tabs.nav-tabs-solid>li>a.active,
+        .nav-tabs.nav-tabs-solid>li>a.active:hover,
+        .nav-tabs.nav-tabs-solid>li>a.active:focus {
+            background-color: #ff9b44;
+            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4);
+            border-color: #ff9b44;
+            font-weight: bolder;
+            color: #1e2730;
+        }
+
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded {
+            border-radius: 5px;
+            background: #ebeff2;
+        }
+
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a {
+            border-radius: 5px;
+        }
+
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a.active,
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a.active:hover,
+        .nav-tabs.nav-tabs-solid.nav-tabs-rounded>li>a.active:focus {
+            border-radius: 5px;
+        }
+
+        .nav-tabs-justified>li>a {
+            border-radius: 0;
+            margin-bottom: 0;
+            border-color: #ddd;
+        }
+
+        .nav-tabs-justified>li>a:hover,
+        .nav-tabs-justified>li>a:focus {
+            border-bottom-color: #ddd;
+        }
+
+        .nav-tabs-justified.nav-tabs-solid>li>a {
+            border-color: transparent;
+        }
+
+        .progress {
+            margin: 10px 0px 5px 10px;
+            width: 700px;
+            border-radius: 5px;
+        }
+
+        .alertnor {
+            color: #28ac46;
+            padding-right: 1rem;
+        }
+
+
+        .alertwar {
+            color: #c4700a;
+            padding-right: 1rem;
+        }
+
+        .alertdang {
+            color: #cf3446;
+            padding-right: 1rem;
+        }
+
+        .leaflet-popup-content h4 {
+            color: rgb(0, 0, 0);
+            margin: 0;
+            display: block;
+            padding: 10px;
+            border-radius: 3px 3px 0 0;
+            font-weight: 700;
+            margin-top: -15px;
+        }
+
+        .leaflet-popup-content p {
+            margin: 2px 0;
+        }
+
+        .leaflet-popup-close-button {
+            display: none;
+        }
+
+        .leaflet-fade-anim .leaflet-popup {
+            transition: none;
+        }
+        
+        /* #selectUnit {
+            width: 120px;
+        } */
+
+        .buttoncari{
+            padding: 4.2px;
+            border-radius: 0 4px 4px 0;
+            background: rgb(240,240,240);
+            border: 1px solid rgb(220,220,220);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .buttoncari:hover{
+            background: white;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="sidebar-mini fixed">
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <div class="wrapper">
+        <!-- Navbar-->
+        <header class="main-header-top hidden-print" style="background-color: #fff;">
+            <a href="/" class="logo"><img class="img-fluid able-logo" src="/assets/images/logo.png"
+                alt="Theme-logo"></a>
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#!" data-toggle="offcanvas" class="sidebar-toggle"
+                style="box-shadow: 0px 0px 7px rgb(0 0 0 /5%);"></a>
+                <ul class="top-nav lft-nav">
+                <li>
+                    <!-- dapat isi disini -->
+                </li>
+                </ul>
+                <!-- Navbar Right Menu-->
+                <div class="navbar-custom-menu f-right">
+                <ul class="top-nav">
+                    <!-- window screen -->
+                    <li class="nav-item dropdown has-arrow main-drop" style="box-shadow: 0px 0px 7px rgb(0 0 0 /5%);">
+                        <a href="#!" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                            class="dropdown-toggle drop icon-circle drop-image">
+                            <span><img class="img-circle " src="/assets/images/avatar-7.png"
+                                style="width:30px; padding-right: 5px;" alt="User Image"></span>
+                            <span> Account <i class=" icofont icofont-simple-down"></i></span>
+                        </a>
+                        <ul class="dropdown-menu settings-menu">
+                            <li><a href="#"><i class="accordion.html"></i> Account</a></li>
+                            <li><a href="#"><i class="icon-lock"></i> Tags</a></li>
+                            <li onclick="logOut()"><a href="#"><i class="icon-logout"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                    <!-- User Menu-->
+                    <li class="pc-rheader-submenu">
+                        <a href="#" class="drop icon-circle" onclick="javascript:toggleFullScreen()">
+                            <i class="icon-size-fullscreen"></i>
+                        </a>
+                    </li>
+                </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Side-Nav-->
+        <aside class="main-sidebar hidden-print ">
+            <section class="sidebar" id="sidebar-scroll">
+                <!-- Sidebar Menu-->
+                <ul class="sidebar-menu">
+                    <li class="active treeview">
+                        <a class="waves-effect waves-dark" href="/">
+                            <i class="icon-home"></i><span> Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="treeview"><a class="waves-effect waves-dark" href="#"><i class="icon-speedometer"></i><span>
+                                Monitoring</span><i class="icon-arrow-down"></i></a>
+                        <ul class="treeview-menu">
+                            <li class="treeview">
+                                <a class="waves-effect waves-dark" href="#">
+                                <i class="icon-arrow-right"></i>
+                                <span>Tower Lamp</span>
+                                <i class="icon-arrow-down"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li>
+                                        <a>
+                                            <div id="selectUnit">
+                                                <select class="selectpicker" id="cnunit" class="form-control search"></select>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- <ul id="data-list" class="treeview-menu"> -->
+                                    <!-- Data JSON akan ditambahkan di sini -->
+                                <!-- </ul> -->
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a class="waves-effect waves-dark" href="/towerlamp/history">
+                            <i class="icon-chart"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Container-fluid starts -->
+            <!-- Main content starts -->
+            <div class="container-fluid" style="background: #f9fbfd;">
+                <div class="row dashboard-header">
+                    <div class="main-header">
+                        <h4>Tower Lamp</h4>
+                        <ol class="breadcrumb breadcrumb-title breadcrumb-arrow mt-3">
+                            <li class="breadcrumb-item">
+                                <a href="/">
+                                    <span class="icofont icofont-home"></span> Dashboard
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/">Towerlamp</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row dashboard-header">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card dashboard-product" style="border-bottom: 2px solid #ff9b44;">
+                        <!-- <div class="card dashboard-product"> -->
+                            <span>Total</span>
+
+                            <div class="d-inline-flex align-items-center">
+                                <h4 id="totalTowerLamp" class="text-dark mb-1 font-weight-medium">10</h4>
+                                <div class="side-box mt-2 p-2">
+                                    <img class="img-fluid" src="/assets/images/ic_towerlamp_dsb.png" alt="">
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card dashboard-product" style="border-bottom: 2px solid #2196f3;">
+                        <!-- <div class="card dashboard-product"> -->
+                            <span>Installed</span>
+                            <div class="d-inline-flex align-items-center">
+                                <h4 id="installedTowerlamp" class="text-dark mb-1 font-weight-medium">Loading</h4>
+                                <div class="progress">
+                                <div id="progress_installedTowerlamp" class="progress-bar progress-bar-success active"
+                                    role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 0%">
+                                    <span id="current-progress"></span>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="side-box">
+                                <!-- <img class="img-fluid" src="/assets/images/ic_dsb_installed.png" alt=""> -->
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2em' height='2em' viewBox='0 0 20 20'%3E%3Cpath fill='%232196f3' d='M16.75 3a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-.342.63a1.38 1.38 0 0 0-1.15-.9L16 7.979V5.561l-4.22 4.22a.75.75 0 0 1-1.06 0L9 8.06l-4.72 4.72a.75.75 0 0 1-1.06-1.061l5.25-5.25a.75.75 0 0 1 1.06 0l1.72 1.72l3.69-3.69h-2.69a.75.75 0 0 1 0-1.5zm-.648 6.712c.26-.26.155-.696-.21-.739a3.5 3.5 0 0 0-3.704 4.652L9.475 16.34a1.5 1.5 0 0 0 2.121 2.121l2.713-2.713a3.5 3.5 0 0 0 4.653-3.704c-.043-.365-.479-.47-.739-.21l-.97.97a1.5 1.5 0 1 1-2.121-2.121z'/%3E%3C/svg%3E" alt="SVG Image">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card dashboard-product" style="border-bottom: 2px solid #4caf50;">
+                        <!-- <div class="card dashboard-product"> -->
+                            <span>Online</span>
+                            <div class="d-inline-flex align-items-center">
+                                <h4 id="onlineTowerlamp" class="text-dark mb-1 font-weight-medium">Loading</h4>
+                                <div class="progress">
+                                <div id="progress_onlineTowerlamp" class="progress-bar progress-bar-success active"
+                                    role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 0%">
+                                    <span id="current-progress"></span>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="side-box">
+                                <!-- <img class="img-fluid" src="/assets/images/ic_dsb_online.png" alt=""> -->
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2em' height='2em' viewBox='0 0 24 24'%3E%3Cpath fill='%234caf50' d='M4.9 17.1q-1.425-1.5-2.162-3.325T2 10t.738-3.775T4.9 2.9l1.2 1.2Q4.9 5.3 4.3 6.863T3.7 10t.6 3.138T6.1 15.9zm2.4-2.4q-.975-.975-1.487-2.2T5.3 10t.513-2.5T7.3 5.3l1.2 1.2q-.75.675-1.125 1.6T7 10q0 .9.375 1.825T8.5 13.5zM7 22l3.375-10.125q-.4-.35-.638-.825T9.5 10q0-1.05.725-1.775T12 7.5t1.775.725T14.5 10q0 .575-.238 1.05t-.637.825L17 22h-2l-.65-2H9.675L9 22zm3.325-4h3.35L12 13zm6.375-3.3l-1.2-1.2q.75-.675 1.125-1.6T17 10q0-.9-.375-1.825T15.5 6.5l1.2-1.2q.975.975 1.45 2.2t.55 2.5q0 1.275-.512 2.5T16.7 14.7m2.4 2.4l-1.2-1.2q1.2-1.2 1.8-2.762T20.3 10t-.6-3.137T17.9 4.1l1.2-1.2q1.425 1.5 2.163 3.325T22 10t-.7 3.775t-2.2 3.325'/%3E%3C/svg%3E" alt="SVG Image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card dashboard-product" style="border-bottom: 2px solid #ff5252;">
+                        <!-- <div class="card dashboard-product"> -->
+                            <span>Offline</span>
+                            <div class="d-inline-flex align-items-center">
+                                <h4 id="offlineTowerlamp" class="text-dark mb-1 font-weight-medium">Loading</h4>
+                                <div class="progress">
+                                <div id="progress_offlineTowerlamp" class="progress-bar bg-danger active" role="progressbar"
+                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                    <span id="current-progress"></span>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="side-box">
+                                <!-- <img class="img-fluid" src="/assets/images/ic_dsb_offline.png" alt=""> -->
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2em' height='2em' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23ff5252' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18.364 5.636a9 9 0 0 1 0 12.728m0 0l-2.828-2.828m2.828 2.828L21 21M15.536 8.464a5 5 0 0 1 0 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 0 1-1.414-2.83m-1.414 5.658a9 9 0 0 1-2.167-9.238m7.824 2.167a1 1 0 1 1 1.414 1.414m-1.414-1.414L3 3m8.293 8.293l1.414 1.414'/%3E%3C/svg%3E" alt="SVG Image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Required Jqurey -->
+<script src="/assets/plugins/Jquery/dist/jquery.min.js"></script>
+<script src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="/assets/plugins/tether/dist/js/tether.min.js"></script>
+
+<!-- Fremwork -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Scrollbar JS-->
+<script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="/assets/plugins/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+
+<!--classic JS-->
+<script src="/assets/plugins/classie/classie.js"></script>
+
+<!-- Counter js  -->
+<script src="/assets/plugins/waypoints/jquery.waypoints.min.js"></script>
+<script src="/assets/plugins/countdown/js/jquery.counterup.js"></script>
+
+<!-- preloder -->
+<script src="/assets/plugins/Holdon/HoldOn.min.js"></script>
+<!-- login -->
+<script src='/assets/js/auth_login.js'></script>
+<script src='/assets/js/init_login.js'></script>
+<!-- notification -->
+<script src="/assets/plugins/notification/js/bootstrap-growl.min.js"></script>
+
+<!-- custom js -->
+<script type="text/javascript" src="/assets/js/main.min.js"></script>
+<script type="text/javascript" src="/assets/pages/dashboard.js"></script>
+<script type="text/javascript" src="/assets/pages/elements.js"></script>
+<script src="/assets/js/menu.min.js"></script>
+
+<!-- Socket.io -->
+<script src="https://cdn.socket.io/4.1.3/socket.io.js"></script>
+<!-- Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+<!-- Include Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- select2 -->
+<script src="/assets/plugins/select2/dist/js/select2.min.js"></script>
+
+<script>
+    // const fetchData = async () => {
+    //     try {
+    //         // Kirim permintaan Untuk Akses semua data Towerlamp
+    //         const response = await axios.get('http://localhost:3000/device/v1/towerlamp/realtime');
+            
+    //         // Tangkap data yang diterima dari server
+    //         const data = response.data;
+    //         console.log(data);
+            
+    //         // Dapatkan elemen <ul> untuk menambahkan data JSON
+    //         const dataList = document.getElementById('data-list');
+            
+    //         // Loop melalui setiap item dalam data JSON
+    //         data.forEach(item => {
+    //             // Buat elemen <li> untuk setiap item
+    //             const listItem = document.createElement('li');
+
+    //             // Buat elemen <a> untuk menampilkan detail item
+    //             const link = document.createElement('a');
+    //             link.id = item.codeName;
+    //             link.classList.add('waves-effect', 'waves-dark');
+
+    //             // Buat elemen <i> untuk ikon
+    //             const icon = document.createElement('i');
+    //             icon.classList.add('icon-arrow-right');
+
+    //             // Buat elemen <span> untuk nama kode
+    //             const span = document.createElement('span');
+    //             span.textContent = item.codeName;
+
+    //             // Gabungkan elemen <i> dan <span> ke dalam elemen <a>
+    //             link.appendChild(icon);
+    //             link.appendChild(span);
+
+    //             // Tambahkan elemen <a> ke dalam elemen <li>
+    //             listItem.appendChild(link);
+
+    //             // Tambahkan elemen <li> ke dalam elemen <ul>
+    //             dataList.appendChild(listItem);
+
+    //             // Tambahkan event listener click ke setiap elemen <a>
+    //             link.addEventListener('click', () => {
+    //                 handleClick(item.codeName);
+    //             });
+    //         });
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //     }
+    // };
+
+    // const handleClick = async (codeName) => {
+    //     try {
+    //         // Lakukan pengalihan halaman dengan melakukan permintaan ke route /device/towerlamp/codeName
+    //         const redirectResponse = await axios.get(`/towerlamp/realtime/${codeName}`);
+            
+    //         // Redirect pengguna ke halaman baru
+    //         window.location.href = redirectResponse.request.responseURL;
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //     }
+    // };
+
+    // fetchData();
+
+    //Konfigurasi Maps
+    let map = L.map('map', { zoomControl: false }).setView([-3.511163, 115.630164], 14);
+
+    googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+        maxZoom: 18,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
+    // googleHybrid.addTo(map);
+
+    // google satelit 
+    googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 18,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
+     googleSat.addTo(map);
+
+    // google street 
+    googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 18,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
+    //  googleStreets.addTo(map);
+
+    let osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    //  osm.addTo(map);
+
+    let baseMaps = {
+        "Google Satelit": googleSat,
+        "Google Hybrid": googleHybrid,
+        "Google Roadmap": googleStreets,
+        "OSM Map": osm,
+    };
+
+    L.control.layers(baseMaps, null, { collapsed: false, position: 'topleft' }).addTo(map);
+
+    L.control.scale({ imperial: true, position: 'bottomleft' }).addTo(map);
+
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    map.attributionControl.setPrefix('Puta Perkasa Abadi');
+
+    // icon TL
+    let towerlampOn = L.icon({
+        iconUrl: '/assets/images/ic_marker_towerlamp_on.png',
+        iconAnchor: new L.Point(6, 10),
+        iconSize: [50, 50],
+    });
+
+    let towerlampOff = L.icon({
+        iconUrl: '/assets/images/ic_marker_towerlamp_off.png',
+        iconAnchor: new L.Point(6, 10),
+        iconSize: [50, 50],
+    });
+
+    // Menggunakan array untuk menyimpan marker
+    let markers = [];
+    // L.marker([-3.517389, 115.629720]).addTo(map);
+
+    const socket = io('http://localhost:4000');
+    let currentData = [];
+
+    socket.on('newData', (data) => {
+        currentData = data;
+        displayData(currentData);
+    });
+
+    function displayData(data) {
+        // Hapus semua marker sebelum menambahkan yang baru
+        markers.forEach(marker => {
+            map.removeLayer(marker);
+        });
+
+        // Tambahkan marker baru untuk setiap titik koordinat dalam data
+        data.forEach(realtime => {
+            let codeName = realtime.codeName;
+            let engineHourMeter = realtime.engineHourMeter;
+            let brand = realtime.brand;
+            let fuelLevel = realtime.fuelLevel;
+            let latitude = realtime.data.latitude;
+            let longitude = realtime.data.longitude;
+            let statusEngine = realtime.statusEngine.statusEngineControl;
+            
+            if(statusEngine === 'engine on'){
+                let popup = L.popup().setContent(
+                    `<h4 class="text-primary">Tower Lamp</h4>
+                    <div class="container"><table class="table table-striped">
+                    <thead><tr><th>Properties</th><th>Detail</th></tr></thead>
+                    <tbody><tr><td>Unit </td><td>${codeName}</td></tr>
+                    <tr><td>Brand </td><td>${brand}</td></tr>
+                    <tr><td>HM </td><td>${engineHourMeter}</td></tr>
+                    <tr><td>Fuel Level </td><td>${fuelLevel}</td></tr>
+                    <tr class="alertnor"><td> Status </td><td>${statusEngine}</td></tr> `
+                );
+                let marker = L.marker([latitude, longitude], { icon: towerlampOn }).addTo(map);
+                markers.push(marker);
+
+                // Menambahkan event mouseover untuk menampilkan popup
+                marker.on('mouseover', function (e) {
+                    this.bindPopup(popup).openPopup();
+                });
+
+                // Menambahkan event mouseout untuk menyembunyikan popup
+                marker.on('mouseout', function (e) {
+                    this.closePopup();
+                });
+
+                marker.on('click', function (e) {
+                    window.location.href = `/towerlamp/realtime/${codeName}`;
+                });
+
+
+            }else if(statusEngine === 'engine off'){
+                let popup = L.popup().setContent(
+                    `<h4 class="text-primary">Tower Lamp</h4>
+                    <div class="container"><table class="table table-striped">
+                    <thead><tr><th>Properties</th><th>Detail</th></tr></thead>
+                    <tbody><tr><td>Unit </td><td>${codeName}</td></tr>
+                    <tr><td>Brand </td><td>${brand}</td></tr>
+                    <tr><td>HM </td><td>${engineHourMeter}</td></tr>
+                    <tr><td>Fuel Level </td><td>${fuelLevel}</td></tr>
+                    <tr class="alertdang"><td> Status </td><td>${statusEngine}</td></tr> `
+                );
+                let marker = L.marker([latitude, longitude], { icon: towerlampOff }).addTo(map);
+                markers.push(marker);
+
+                // Menambahkan event mouseover untuk menampilkan popup
+                marker.on('mouseover', function (e) {
+                    this.bindPopup(popup).openPopup();
+                });
+
+                // Menambahkan event mouseout untuk menyembunyikan popup
+                marker.on('mouseout', function (e) {
+                    this.closePopup();
+                });
+
+                marker.on('click', function (e) {
+                    window.location.href = `/towerlamp/realtime/${codeName}`;
+                });
+            }
+        });
+
+        //Update Progress Dashboard
+        let totalOnlineTowerlamp = 0;
+        let totalOfflineTowerlamp = 0;
+        // console.log(data);
+
+        //Total Tower Lamp
+        const totalTowerLamp = document.getElementById('totalTowerLamp').textContent;
+        const installedTowerlamp = data.length;
+        data.forEach(item => {
+            if(item.statusEngine.statusEngineControl === 'engine on'){
+                totalOnlineTowerlamp++;
+                // console.log(totalOnlineTowerlamp);
+            }else if(item.statusEngine.statusEngineControl === 'engine off'){
+                totalOfflineTowerlamp++;
+                // console.log(totalOfflineTowerlamp);
+            }
+        });
+        
+        document.getElementById('installedTowerlamp').textContent = `${installedTowerlamp}/${totalTowerLamp}`;
+        document.getElementById('onlineTowerlamp').textContent = `${totalOnlineTowerlamp}/${installedTowerlamp}`;
+        document.getElementById('offlineTowerlamp').textContent = `${totalOfflineTowerlamp}/${installedTowerlamp}`;
+        set_proggress_bar_value("Device Installed", parseInt(installedTowerlamp / totalTowerLamp * 100));
+        set_proggress_bar_value("Online", parseInt(totalOnlineTowerlamp / installedTowerlamp * 100));
+        set_proggress_bar_value("Offline", parseInt(totalOfflineTowerlamp / installedTowerlamp * 100));
+
+        function set_proggress_bar_value(bar, current_progress) {
+            var color_progress = "red";
+            if (current_progress >= 0 && current_progress < 40) {
+                color_progress = "red";
+            } else if (current_progress >= 40 && current_progress < 60) {
+                color_progress = "orange";
+            } else if (current_progress >= 60 && current_progress < 80) {
+                color_progress = "green";
+            } else if (current_progress >= 80 && current_progress < 101) {
+                color_progress = "blue";
+            }
+            if (bar == "Device Installed") {
+                $("#progress_installedTowerlamp")
+                    .css("width", current_progress + "%")
+                    .attr("aria-valuenow", current_progress)
+                    .css('background-color', "#2196f3")
+                    .text(current_progress + "%");
+            } else if (bar == "Online") {
+                $("#progress_onlineTowerlamp")
+                    .css("width", current_progress + "%")
+                    .attr("aria-valuenow", current_progress)
+                    .css('background-color', "#4caf50")
+                    .text(current_progress + "%");
+            } else if (bar == "Offline") {
+                $("#progress_offlineTowerlamp")
+                    .css("width", current_progress + "%")
+                    .attr("aria-valuenow", current_progress)
+                    .css('background-color', "#ff5252")
+                    .text(current_progress + "%");
+            }
+        }
+    }
+
+    socket.emit('getAllDataRealtime');
+
+    $(document).ready(function () {
+        $('#cnunit').select2({
+            width: '100%',
+            allowClear: true,
+            multiple: false,
+            placeholder: 'Select Unit',
+            language: {
+                Results: function () {
+                return null;
+                },
+            },
+            cache: true
+        });
+
+        // request master cn
+        $.ajax({
+            url: "http://localhost:3000/device/v1/towerlamp/realtime",
+            method: "GET",
+            dataType: 'json',
+            success: function (data) {
+                let html = '';
+                let i;
+                $('#cnunit').html('')
+                html += '<option value="">Filter Unit</option>';
+                for (i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].codeName + '">' + data[i].codeName + '</option>';
+                    // console.log(data[i].codeName);
+                }
+                $('#cnunit').html(html)
+            } 
+        });
+
+        $('#cnunit').change(function () {
+            let codeName = $(this).val();
+            localStorage.setItem('codeName', codeName);
+            window.location.href = `/towerlamp/realtime/${codeName}`;
+            // if(codeName !== ''){
+            //     window.location.href = `/towerlamp/realtime/${codeName}`;
+            // }else{
+            //     window.location.href = '/';
+            //     localStorage.removeItem('codeName');
+            // }
+        });
+        
+        // $('.buttoncari').on('click', () => {
+        //     let codeName = localStorage.getItem('codeName');
+        //     // console.log(codeName);
+        //     if(codeName !== ''){
+        //         window.location.href = `/towerlamp/realtime/${codeName}`;
+        //     }else{
+        //         window.location.href = '/';
+        //         localStorage.removeItem('codeName');
+        //     }
+        // });
+    });
+    
+    window.addEventListener('beforeunload', function(event) {
+        // Hapus item dari local storage
+        localStorage.removeItem('codeName'); // Ganti 'key' dengan nama kunci dari data yang ingin Anda hapus
+    });
+
+</script>
+</html> 
