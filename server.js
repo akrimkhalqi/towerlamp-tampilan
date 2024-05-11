@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 const route = require('./routes');
 let API = 'http://api57.transformore.net';
@@ -136,5 +136,5 @@ io.on('connection', (socket) => {
 
 
 server.listen(port, () => {
-    console.log(`Server sedang berjalan di http://localhost:${port}`);
+    console.log(`Server sedang berjalan`);
 });
