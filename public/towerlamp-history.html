@@ -422,6 +422,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
     
     
     $(document).ready(function () {
+        let API = 'http://api57.transformore.net';
         var dataTable = $('#data-table').DataTable({
             responsive: true,
             pageLength: 10,
@@ -478,7 +479,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
             if(selectCodeName == ''){
                 $.ajax({
-                    url: `http://localhost:3000/device/v1/towerlamp/history?startDate=${startDate}&endDate=${endDate}`,
+                    url: `${API}/device/v1/towerlamp/history?startDate=${startDate}&endDate=${endDate}`,
                     method: 'GET',
                     success: function(response) {
                         var table = $('#data-table').DataTable();
@@ -499,7 +500,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
                 });
             }else{
                 $.ajax({
-                    url: `http://localhost:3000/device/v1/towerlamp/history?codeName=${selectCodeName}&startDate=${startDate}&endDate=${endDate}`,
+                    url: `${API}/device/v1/towerlamp/history?codeName=${selectCodeName}&startDate=${startDate}&endDate=${endDate}`,
                     method: 'GET',
                     success: function(response) {
                         var table = $('#data-table').DataTable();
@@ -580,7 +581,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 
         // request master cn
         $.ajax({
-            url: "http://localhost:3000/device/v1/towerlamp/realtime",
+            url: `${API}/device/v1/towerlamp/realtime`,
             method: "GET",
             dataType: 'json',
             success: function (data) {

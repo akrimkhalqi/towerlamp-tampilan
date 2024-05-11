@@ -11,6 +11,7 @@ const io = socketIo(server);
 const port = 4000;
 
 const route = require('./routes');
+let API = 'http://api57.transformore.net';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static('public'));
@@ -33,7 +34,7 @@ app.use((req, res, next) => {
 // Mengatur endpoint untuk menyalakan Engine
 app.post('/engine/on', (req, res) => {
 // Panggil API publik untuk menyalakan Engine
-axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName:"xx123", eng_control: true })
+axios.post(`${API}/device/v1/towerlamp/send`, { codeName:"xx123", eng_control: true })
     .then((response) => {
         console.log(response.data);
         res.send('Engine telah dinyalakan.');
@@ -47,7 +48,7 @@ axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName:"xx123",
 // Mengatur endpoint untuk mematikan Engine
 app.post('/engine/off', (req, res) => {
 // Panggil API publik untuk mematikan Engine
-axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName:"xx123", eng_control: false })
+axios.post(`${API}/device/v1/towerlamp/send`, { codeName:"xx123", eng_control: false })
     .then((response) => {
         console.log(response.data);
         res.send('Engine telah dimatikan.');
@@ -62,7 +63,7 @@ axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName:"xx123",
 async function fetchDataAndEmit(codeName) {
     try {
         io.emit('fetchingData');
-        const response = await axios.get(`http://localhost:3000/device/v1/towerlamp/data-realtime?codeName=${codeName}`);
+        const response = await axios.get(`${API}/device/v1/towerlamp/data-realtime?codeName=${codeName}`);
         const data = response.data.data;
         io.emit('newData', data);
         // console.log('berhasil get data', data);
@@ -78,7 +79,7 @@ async function fetchDataAndEmit(codeName) {
 async function fetchAllDataRealtime() {
     try {
         io.emit('fetchingData');
-        const response = await axios.get(`http://localhost:3000/device/v1/towerlamp/realtime`);
+        const response = await axios.get(`${API}/device/v1/towerlamp/realtime`);
         const data = response.data;
         io.emit('newData', data);
         // console.log('berhasil get data', data);

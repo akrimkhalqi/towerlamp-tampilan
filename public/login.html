@@ -140,48 +140,49 @@
 <script src="/node/sweetalert2/dist/sweetalert2.min.js"></script>
 <script src="assets/js/jquery-3.6.0.min.js"></script>
 <script>
-        $(".preloader ").fadeOut();
-        function validasi() {
-            var usernrp = document.forms["form_profil"]["usernrp"].value;
-            var password = document.forms["form_profil"]["password"].value;
-            console.log([usernrp,password])
-            if (usernrp != "" && password != "") {
-                var url = "http://localhost:3000/device/v1/towerlamp/login";
-                var http = new XMLHttpRequest();
-                http.open("POST", url, true);
-                http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                http.onreadystatechange = function () {
-                    // console.log(http.response);
-                    if (http.readyState == 4) {
-                        var res = JSON.parse(http.response)
-                        console.log(res);
-                        if (res.loginSuccess == true) {
-                            console.log(res.loginSuccess);
-                            localStorage.setItem("ppa_dashboard_token", res.token);
-                            // localStorage.removeItem("ppa_dashboard_token");
-                            swal.fire({
-                                icon: "success",
-                                title: "Login succesfully",
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-                            .then(function () {
-                                window.location = "/";
-                            });
-                        } else {
-                            swal.fire({
-                                icon: "error",
-                                title: "Oops...",
-                                text: res.message,
-                                showConfirmButton: true
-                                // timer: 2000
-                            });
-                        }
+    $(".preloader ").fadeOut();
+    function validasi() {
+        let API = 'http://api57.transformore.net';
+        var usernrp = document.forms["form_profil"]["usernrp"].value;
+        var password = document.forms["form_profil"]["password"].value;
+        console.log([usernrp,password])
+        if (usernrp != "" && password != "") {
+            var url = `${API}/device/v1/towerlamp/login`;
+            var http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            http.onreadystatechange = function () {
+                // console.log(http.response);
+                if (http.readyState == 4) {
+                    var res = JSON.parse(http.response)
+                    console.log(res);
+                    if (res.loginSuccess == true) {
+                        console.log(res.loginSuccess);
+                        localStorage.setItem("ppa_dashboard_token", res.token);
+                        // localStorage.removeItem("ppa_dashboard_token");
+                        swal.fire({
+                            icon: "success",
+                            title: "Login succesfully",
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                        .then(function () {
+                            window.location = "/";
+                        });
+                    } else {
+                        swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: res.message,
+                            showConfirmButton: true
+                            // timer: 2000
+                        });
                     }
                 }
-                http.send(`nrp=${usernrp}&password=${password}`);
             }
+            http.send(`nrp=${usernrp}&password=${password}`);
         }
+    }
 </script>
 
 </html>

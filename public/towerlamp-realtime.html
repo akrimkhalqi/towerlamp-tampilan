@@ -527,13 +527,14 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
     localStorage.removeItem("statusLamp2");
     const codeName = window.location.pathname.split('/').pop();
     document.getElementById('codeName').textContent = codeName;
+    let API = 'http://api57.transformore.net';
 
     //get semua data TL untuk ditampilkan di side bar
     const currentURL = window.location.href;
     const fetchData = async () => {
         try {
             // Kirim permintaan Untuk Akses semua data Towerlamp
-            const response = await axios.get('http://localhost:3000/device/v1/towerlamp/realtime');
+            const response = await axios.get(`${API}/device/v1/towerlamp/realtime`);
             
             // Tangkap data yang diterima dari server
             const data = response.data;
@@ -620,7 +621,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         button.disabled = false;
 
         if (isApiRequestOn) {
-            axios.post('http://localhost:3000/device/v1/towerlamp/send-key', { codeName: textCodeName, key_control: statusKey })
+            axios.post(`${API}/device/v1/towerlamp/send-key`, { codeName: textCodeName, key_control: statusKey })
             .then(function (response) {
                 console.log('Data sent successfully:', response.data);
                 if(statusKey === true){
@@ -636,7 +637,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
                 console.error('Error sending data:', error);
             });
         } else {
-            axios.post('http://localhost:3000/device/v1/towerlamp/send-key', { codeName: textCodeName, key_control: statusKey })
+            axios.post(`${API}/device/v1/towerlamp/send-key`, { codeName: textCodeName, key_control: statusKey })
             .then(function (response) {
                 console.log('Data sent successfully:', response.data);
                 if(statusKey === true){
@@ -671,7 +672,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         button.disabled = false;
 
         if (isApiRequestOn) {
-            axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+            axios.post(`${API}/device/v1/towerlamp/send`, { codeName: textCodeName, eng_control: statusEngine })
             .then(function (response) {
                 console.log('Data sent successfully:', response.data);
                 if(statusEngine === true){
@@ -687,7 +688,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
                 console.error('Error sending data:', error);
             });
         } else {
-            axios.post('http://localhost:3000/device/v1/towerlamp/send', { codeName: textCodeName, eng_control: statusEngine })
+            axios.post(`${API}/device/v1/towerlamp/send`, { codeName: textCodeName, eng_control: statusEngine })
             .then(function (response) {
                 console.log('Data sent successfully:', response.data);
                 if(statusEngine === true){
@@ -722,7 +723,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         button.disabled = false;
 
         if (isApiRequestOn) {
-            axios.post('http://localhost:3000/device/v1/towerlamp/send-lamp', { codeName: textCodeName, lamp_control: statusLamp })
+            axios.post(`${API}/device/v1/towerlamp/send-lamp`, { codeName: textCodeName, lamp_control: statusLamp })
             .then(function (response) {
                 console.log('Data sent successfully:', response.data);
                 if(statusLamp === true){
@@ -738,7 +739,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
                 console.error('Error sending data:', error);
             });
         } else {
-            axios.post('http://localhost:3000/device/v1/towerlamp/send-lamp', { codeName: textCodeName, lamp_control: statusLamp })
+            axios.post(`${API}/device/v1/towerlamp/send-lamp`, { codeName: textCodeName, lamp_control: statusLamp })
             .then(function (response) {
                 console.log('Data sent successfully:', response.data);
                 if(statusLamp === true){
@@ -773,7 +774,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
         button.disabled = false;
 
         if (isApiRequestOn) {
-            axios.post('http://localhost:3000/device/v1/towerlamp/send-lamp', { codeName: textCodeName, lamp2_control: statusLamp2 })
+            axios.post(`${API}/device/v1/towerlamp/send-lamp`, { codeName: textCodeName, lamp2_control: statusLamp2 })
             .then(function (response) {
                 console.log('Data sent successfully:', response.data);
                 if(statusLamp2 === true){
@@ -789,7 +790,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
                 console.error('Error sending data:', error);
             });
         } else {
-            axios.post('http://localhost:3000/device/v1/towerlamp/send-lamp', { codeName: textCodeName, lamp2_control: statusLamp2 })
+            axios.post(`${API}/device/v1/towerlamp/send-lamp`, { codeName: textCodeName, lamp2_control: statusLamp2 })
             .then(function (response) {
                 console.log('Data sent successfully:', response.data);
                 if(statusLamp2 === true){
@@ -1054,9 +1055,10 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
             cache: true
         });
 
+        // let API = 'http://api57.transformore.net';
         // request master cn
         $.ajax({
-            url: "http://localhost:3000/device/v1/towerlamp/realtime",
+            url: `${API}/device/v1/towerlamp/realtime`,
             method: "GET",
             dataType: 'json',
             success: function (data) {
