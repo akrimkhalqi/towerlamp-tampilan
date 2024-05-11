@@ -136,5 +136,5 @@ io.on('connection', (socket) => {
 
 
 server.listen(port, () => {
-    console.log(`Server sedang berjalan`);
+    console.log(`Server sedang berjalan ${port}`);
 });
